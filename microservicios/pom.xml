@@ -30,6 +30,7 @@
         <java.version>24</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <lombok.version>1.18.38</lombok.version>
+        <flyway.version>9.22.3</flyway.version>
     </properties>
 
     <build>
