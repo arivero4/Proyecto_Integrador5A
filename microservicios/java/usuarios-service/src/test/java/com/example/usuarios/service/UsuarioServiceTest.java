@@ -11,9 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +31,7 @@ class UsuarioServiceTest {
     @Test
     void crearUsuario_debeAsignarEstadoActivo() {
         UsuarioDTO dto = new UsuarioDTO(null, "Juan Perez", "juan@test.com", "3001234567", TipoUsuario.PRODUCTOR, null);
-        Usuario saved = new Usuario(1L, "Juan Perez", "juan@test.com", "3001234567", TipoUsuario.PRODUCTOR, EstadoUsuario.ACTIVO);
+        Usuario saved = new Usuario(1L, "Juan Perez", "juan@test.com", "3001234567", TipoUsuario.PRODUCTOR, EstadoUsuario.ACTIVO, null);
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(saved);
 
         UsuarioDTO result = usuarioService.crearUsuario(dto);
@@ -46,7 +43,7 @@ class UsuarioServiceTest {
 
     @Test
     void obtenerUsuario_cuandoExiste_retornaDTO() {
-        Usuario usuario = new Usuario(1L, "Ana", "ana@test.com", null, TipoUsuario.ADMIN, EstadoUsuario.ACTIVO);
+        Usuario usuario = new Usuario(1L, "Ana", "ana@test.com", null, TipoUsuario.ADMIN, EstadoUsuario.ACTIVO, null);
         when(usuarioRepository.findById(1L)).thenReturn(Optional.of(usuario));
 
         UsuarioDTO result = usuarioService.obtenerUsuario(1L);
@@ -71,15 +68,14 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void listarTodos_retornaPaginaDeUsuarios() {
-        Usuario u = new Usuario(1L, "Carlos", "carlos@test.com", null, TipoUsuario.PRODUCTOR, EstadoUsuario.ACTIVO);
-        Page<Usuario> page = new PageImpl<>(List.of(u));
-        when(usuarioRepository.findAll(any(PageRequest.class))).thenReturn(page);
+    void listarTodos_retornaListaDeUsuarios() {
+        Usuario u = new Usuario(1L, "Carlos", "carlos@test.com", null, TipoUsuario.PRODUCTOR, EstadoUsuario.ACTIVO, null);
+        when(usuarioRepository.findAll()).thenReturn(List.of(u));
 
-        Page<UsuarioDTO> result = usuarioService.listarTodos(PageRequest.of(0, 10));
+        List<UsuarioDTO> result = usuarioService.listarTodos();
 
-        assertEquals(1, result.getTotalElements());
-        assertEquals("Carlos", result.getContent().get(0).getNombre());
+        assertEquals(1, result.size());
+        assertEquals("Carlos", result.get(0).getNombre());
     }
 
     @Test

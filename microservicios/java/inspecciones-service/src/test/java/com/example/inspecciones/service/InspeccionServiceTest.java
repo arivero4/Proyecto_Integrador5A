@@ -11,9 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -41,7 +38,7 @@ class InspeccionServiceTest {
     @BeforeEach
     void setUp() {
         ReflectionTestUtils.setField(inspeccionService, "usuariosUrl", "http://localhost:8081");
-        ReflectionTestUtils.setField(inspeccionService, "prediosUrl", "http://localhost:8082");
+        ReflectionTestUtils.setField(inspeccionService, "prediosUrl",  "http://localhost:8082");
     }
 
     @Test
@@ -75,13 +72,13 @@ class InspeccionServiceTest {
     }
 
     @Test
-    void listarTodas_retornaPagina() {
+    void listarTodas_retornaLista() {
         InspeccionFitosanitaria i = new InspeccionFitosanitaria(1L, 1L, 2L, new Date(), null, EstadoInspeccion.PENDIENTE);
-        when(inspeccionRepository.findAll(any(PageRequest.class))).thenReturn(new PageImpl<>(List.of(i)));
+        when(inspeccionRepository.findAll()).thenReturn(List.of(i));
 
-        Page<InspeccionFitosanitariaDTO> result = inspeccionService.listarTodas(PageRequest.of(0, 10));
+        List<InspeccionFitosanitariaDTO> result = inspeccionService.listarTodas();
 
-        assertEquals(1, result.getTotalElements());
+        assertEquals(1, result.size());
     }
 
     @Test

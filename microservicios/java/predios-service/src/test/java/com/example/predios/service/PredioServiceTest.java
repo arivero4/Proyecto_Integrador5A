@@ -11,9 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -73,13 +70,14 @@ class PredioServiceTest {
     }
 
     @Test
-    void listarTodos_retornaPagina() {
+    void listarTodos_retornaLista() {
         Predio p = new Predio(1L, 1L, "Finca", 1L, 5.0, null, null, EstadoPredio.ACTIVO);
-        when(predioRepository.findAll(any(PageRequest.class))).thenReturn(new PageImpl<>(List.of(p)));
+        when(predioRepository.findAll()).thenReturn(List.of(p));
 
-        Page<PredioDTO> result = predioService.listarTodos(PageRequest.of(0, 10));
+        List<PredioDTO> result = predioService.listarTodos();
 
-        assertEquals(1, result.getTotalElements());
+        assertEquals(1, result.size());
+        assertEquals("Finca", result.get(0).getNombre());
     }
 
     @Test

@@ -3,12 +3,10 @@ package com.example.inspecciones.controller;
 import com.example.inspecciones.dto.InspeccionFitosanitariaDTO;
 import com.example.inspecciones.service.InspeccionService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +17,7 @@ import java.util.List;
 @RequestMapping("/api/inspecciones")
 @RequiredArgsConstructor
 @Tag(name = "Inspecciones", description = "Gestión de inspecciones fitosanitarias")
+@SecurityRequirement(name = "bearerAuth")
 public class InspeccionController {
 
     private final InspeccionService inspeccionService;
@@ -36,11 +35,9 @@ public class InspeccionController {
     }
 
     @GetMapping
-    @Operation(summary = "Listar inspecciones con paginación")
-    public ResponseEntity<Page<InspeccionFitosanitariaDTO>> listarInspecciones(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(inspeccionService.listarTodas(PageRequest.of(page, size, Sort.by("fechaInspeccion").descending())));
+    @Operation(summary = "Listar todas las inspecciones")
+    public ResponseEntity<List<InspeccionFitosanitariaDTO>> listarInspecciones() {
+        return ResponseEntity.ok(inspeccionService.listarTodas());
     }
 
     @GetMapping("/predio/{idPredio}")

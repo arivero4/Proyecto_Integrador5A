@@ -7,9 +7,10 @@ import com.example.usuarios.enums.TipoUsuario;
 import com.example.usuarios.exception.ResourceNotFoundException;
 import com.example.usuarios.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,8 +34,10 @@ public class UsuarioService {
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario con ID " + id + " no encontrado"));
     }
 
-    public Page<UsuarioDTO> listarTodos(Pageable pageable) {
-        return usuarioRepository.findAll(pageable).map(this::convertToDTO);
+    public List<UsuarioDTO> listarTodos() {
+        return usuarioRepository.findAll().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     public UsuarioDTO actualizarUsuario(Long id, UsuarioDTO dto) {
@@ -55,8 +58,10 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    public Page<UsuarioDTO> listarPorTipo(TipoUsuario tipoUsuario, Pageable pageable) {
-        return usuarioRepository.findByTipoUsuario(tipoUsuario, pageable).map(this::convertToDTO);
+    public List<UsuarioDTO> listarPorTipo(TipoUsuario tipoUsuario) {
+        return usuarioRepository.findByTipoUsuario(tipoUsuario).stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     private UsuarioDTO convertToDTO(Usuario u) {

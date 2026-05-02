@@ -7,8 +7,6 @@ import com.example.predios.exception.ResourceNotFoundException;
 import com.example.predios.repository.PredioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -45,8 +43,10 @@ public class PredioService {
                 .orElseThrow(() -> new ResourceNotFoundException("Predio con ID " + id + " no encontrado"));
     }
 
-    public Page<PredioDTO> listarTodos(Pageable pageable) {
-        return predioRepository.findAll(pageable).map(this::convertToDTO);
+    public List<PredioDTO> listarTodos() {
+        return predioRepository.findAll().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     public List<PredioDTO> listarPorProductor(Long idProductor) {

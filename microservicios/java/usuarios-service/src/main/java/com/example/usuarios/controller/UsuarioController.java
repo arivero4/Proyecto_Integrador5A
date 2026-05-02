@@ -4,20 +4,21 @@ import com.example.usuarios.dto.UsuarioDTO;
 import com.example.usuarios.enums.TipoUsuario;
 import com.example.usuarios.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/usuarios")
 @RequiredArgsConstructor
 @Tag(name = "Usuarios", description = "Gestión de usuarios del sistema")
+@SecurityRequirement(name = "bearerAuth")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
@@ -35,20 +36,15 @@ public class UsuarioController {
     }
 
     @GetMapping
-    @Operation(summary = "Listar usuarios con paginación")
-    public ResponseEntity<Page<UsuarioDTO>> listarUsuarios(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(usuarioService.listarTodos(PageRequest.of(page, size, Sort.by("nombre"))));
+    @Operation(summary = "Listar todos los usuarios")
+    public ResponseEntity<List<UsuarioDTO>> listarUsuarios() {
+        return ResponseEntity.ok(usuarioService.listarTodos());
     }
 
     @GetMapping("/tipo/{tipoUsuario}")
     @Operation(summary = "Listar usuarios por tipo")
-    public ResponseEntity<Page<UsuarioDTO>> listarPorTipo(
-            @PathVariable TipoUsuario tipoUsuario,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(usuarioService.listarPorTipo(tipoUsuario, PageRequest.of(page, size)));
+    public ResponseEntity<List<UsuarioDTO>> listarPorTipo(@PathVariable TipoUsuario tipoUsuario) {
+        return ResponseEntity.ok(usuarioService.listarPorTipo(tipoUsuario));
     }
 
     @PutMapping("/{id}")

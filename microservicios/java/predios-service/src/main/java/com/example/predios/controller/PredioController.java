@@ -3,12 +3,10 @@ package com.example.predios.controller;
 import com.example.predios.dto.PredioDTO;
 import com.example.predios.service.PredioService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +17,7 @@ import java.util.List;
 @RequestMapping("/api/predios")
 @RequiredArgsConstructor
 @Tag(name = "Predios", description = "Gestión de predios agrícolas")
+@SecurityRequirement(name = "bearerAuth")
 public class PredioController {
 
     private final PredioService predioService;
@@ -36,11 +35,9 @@ public class PredioController {
     }
 
     @GetMapping
-    @Operation(summary = "Listar predios con paginación")
-    public ResponseEntity<Page<PredioDTO>> listarPredios(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        return ResponseEntity.ok(predioService.listarTodos(PageRequest.of(page, size, Sort.by("nombre"))));
+    @Operation(summary = "Listar todos los predios")
+    public ResponseEntity<List<PredioDTO>> listarPredios() {
+        return ResponseEntity.ok(predioService.listarTodos());
     }
 
     @GetMapping("/productor/{idProductor}")

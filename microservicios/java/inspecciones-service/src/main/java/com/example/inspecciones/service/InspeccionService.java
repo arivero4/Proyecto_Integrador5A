@@ -7,8 +7,6 @@ import com.example.inspecciones.exception.ResourceNotFoundException;
 import com.example.inspecciones.repository.InspeccionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -47,8 +45,10 @@ public class InspeccionService {
                 .orElseThrow(() -> new ResourceNotFoundException("Inspección con ID " + id + " no encontrada"));
     }
 
-    public Page<InspeccionFitosanitariaDTO> listarTodas(Pageable pageable) {
-        return inspeccionRepository.findAll(pageable).map(this::convertToDTO);
+    public List<InspeccionFitosanitariaDTO> listarTodas() {
+        return inspeccionRepository.findAll().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     public List<InspeccionFitosanitariaDTO> listarPorPredio(Long idPredio) {
