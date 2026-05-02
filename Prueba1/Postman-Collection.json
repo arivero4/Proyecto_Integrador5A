@@ -1,0 +1,489 @@
+{
+	"info": {
+		"_postman_id": "agro-microservices-collection",
+		"name": "Sistema Agrícola - Microservicios",
+		"description": "Colección de requests para los 3 microservicios del sistema agrícola",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "MS-USUARIOS (8081)",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/usuarios/healthcheck",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8081",
+							"path": ["api", "usuarios", "healthcheck"]
+						}
+					}
+				},
+				{
+					"name": "Crear Productor",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"documentoIdentidad\": \"123456789\",\n  \"nombres\": \"Juan Carlos\",\n  \"apellidos\": \"Pérez García\",\n  \"telefono\": \"555-1234\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/productores",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8081",
+							"path": ["api", "productores"]
+						}
+					}
+				},
+				{
+					"name": "Listar Productores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/productores",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8081",
+							"path": ["api", "productores"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Productor por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/productores/123456789",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8081",
+							"path": ["api", "productores", "123456789"]
+						}
+					}
+				},
+				{
+					"name": "Actualizar Productor",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombres\": \"Juan Carlos\",\n  \"apellidos\": \"Pérez García\",\n  \"telefono\": \"555-9999\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/productores/123456789",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8081",
+							"path": ["api", "productores", "123456789"]
+						}
+					}
+				},
+				{
+					"name": "Eliminar Productor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/productores/123456789",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8081",
+							"path": ["api", "productores", "123456789"]
+						}
+					}
+				},
+				{
+					"name": "Crear Asistente Técnico",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"documentoIdentidad\": \"987654321\",\n  \"nombres\": \"Ana María\",\n  \"apellidos\": \"González López\",\n  \"telefono\": \"555-5678\",\n  \"especialidad\": \"Cultivos orgánicos\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/asistentes-tecnicos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8081",
+							"path": ["api", "asistentes-tecnicos"]
+						}
+					}
+				},
+				{
+					"name": "Listar Asistentes Técnicos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/asistentes-tecnicos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8081",
+							"path": ["api", "asistentes-tecnicos"]
+						}
+					}
+				},
+				{
+					"name": "Listar Todos los Usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/usuarios",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8081",
+							"path": ["api", "usuarios"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "MS-TERRITORIAL (8082)",
+			"item": [
+				{
+					"name": "Crear Departamento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"codigoDane\": \"05\",\n  \"nombre\": \"Antioquia\",\n  \"region\": \"Andina\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/departamentos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8082",
+							"path": ["api", "departamentos"]
+						}
+					}
+				},
+				{
+					"name": "Listar Departamentos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/departamentos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8082",
+							"path": ["api", "departamentos"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Departamento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/departamentos/05",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8082",
+							"path": ["api", "departamentos", "05"]
+						}
+					}
+				},
+				{
+					"name": "Crear Lugar de Producción",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"codigoIca\": \"ICA001\",\n  \"nombre\": \"Finca El Sol\",\n  \"areaProductiva\": 15.5,\n  \"tipoExplotacion\": \"Orgánico\",\n  \"numeroPredialPredio\": \"PRED001\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/lugares-produccion",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8082",
+							"path": ["api", "lugares-produccion"]
+						}
+					}
+				},
+				{
+					"name": "Listar Lugares de Producción",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/lugares-produccion",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8082",
+							"path": ["api", "lugares-produccion"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Lugar de Producción",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/lugares-produccion/ICA001",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8082",
+							"path": ["api", "lugares-produccion", "ICA001"]
+						}
+					}
+				},
+				{
+					"name": "Actualizar Lugar de Producción",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombre\": \"Finca El Sol (Actualizado)\",\n  \"areaProductiva\": 20.0,\n  \"tipoExplotacion\": \"Orgánico certificado\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/lugares-produccion/ICA001",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8082",
+							"path": ["api", "lugares-produccion", "ICA001"]
+						}
+					}
+				},
+				{
+					"name": "Crear Cultivo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"codigoIca\": \"CULT001\",\n  \"tipoPlanta\": \"Café\",\n  \"variedad\": \"Arábigo\",\n  \"numeroPlantasSembradas\": 1000,\n  \"areaCultivada\": 5.0,\n  \"codigoIcaLote\": \"LOTE001\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8082/api/cultivos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8082",
+							"path": ["api", "cultivos"]
+						}
+					}
+				},
+				{
+					"name": "Listar Cultivos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/cultivos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8082",
+							"path": ["api", "cultivos"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "MS-INSPECCIONES (8083)",
+			"item": [
+				{
+					"name": "Crear Inspección",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fechaVisita\": \"07/03/2026\",\n  \"estadoPlaga\": \"Controlado\",\n  \"conceptoTecnico\": \"Aplicar fertilizante nitrogenado según recomendaciones\",\n  \"codigoIcaLugarProduccion\": \"ICA001\",\n  \"idAsistenteTecnico\": \"987654321\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/inspecciones",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8083",
+							"path": ["api", "inspecciones"]
+						},
+						"description": "Valida automáticamente que el lugar de producción ICA001 existe en MS-TERRITORIAL"
+					}
+				},
+				{
+					"name": "Listar Inspecciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/inspecciones",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8083",
+							"path": ["api", "inspecciones"]
+						}
+					}
+				},
+				{
+					"name": "Buscar Inspección",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/inspecciones/INSP001",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8083",
+							"path": ["api", "inspecciones", "INSP001"]
+						}
+					}
+				},
+				{
+					"name": "Actualizar Inspección",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fechaVisita\": \"08/03/2026\",\n  \"estadoPlaga\": \"En tratamiento\",\n  \"conceptoTecnico\": \"Continuar con aplicación de fertilizante\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/inspecciones/INSP001",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8083",
+							"path": ["api", "inspecciones", "INSP001"]
+						}
+					}
+				},
+				{
+					"name": "Crear Resultado Técnico",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"observacion\": \"Planta presenta síntomas de deficiencia nutricional\",\n  \"recomendacion\": \"Aplicar fertilizante rico en nitrógeno\",\n  \"idInspeccion\": \"INSP001\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/resultados-tecnicos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8083",
+							"path": ["api", "resultados-tecnicos"]
+						}
+					}
+				},
+				{
+					"name": "Listar Resultados Técnicos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/resultados-tecnicos",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8083",
+							"path": ["api", "resultados-tecnicos"]
+						}
+					}
+				},
+				{
+					"name": "Crear Plaga",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombreComun\": \"Roya del café\",\n  \"nombreCientifico\": \"Hemileia vastatrix\",\n  \"tipo\": \"Hongo\",\n  \"idResultadoTecnico\": \"RES001\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/plagas",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8083",
+							"path": ["api", "plagas"]
+						}
+					}
+				},
+				{
+					"name": "Listar Plagas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/plagas",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "8083",
+							"path": ["api", "plagas"]
+						}
+					}
+				}
+			]
+		}
+	]
+}

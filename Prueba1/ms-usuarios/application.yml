@@ -1,0 +1,41 @@
+# Configuración del Microservicio de Usuarios
+server:
+  port: 8081
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: ms-usuarios
+  
+  # Configuración de JSON
+  jackson:
+    serialization:
+      indent-output: true
+      write-dates-as-timestamps: false
+    default-property-inclusion: non_null
+
+# Logging
+logging:
+  level:
+    root: INFO
+    rest: DEBUG
+    presentacionC: DEBUG
+    negocioC: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# URLs de otros microservicios
+microservices:
+  territorial:
+    url: http://localhost:8082
+  inspecciones:
+    url: http://localhost:8083
+
+# Información del microservicio
+info:
+  app:
+    name: Microservicio de Usuarios
+    description: Gestión de Productores y Asistentes Técnicos
+    version: 1.0.0
+    port: 8081

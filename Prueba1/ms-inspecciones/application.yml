@@ -1,0 +1,41 @@
+# Configuración del Microservicio de Inspecciones
+server:
+  port: 8083
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: ms-inspecciones
+  
+  # Configuración de JSON
+  jackson:
+    serialization:
+      indent-output: true
+      write-dates-as-timestamps: false
+    default-property-inclusion: non_null
+
+# Logging
+logging:
+  level:
+    root: INFO
+    rest: DEBUG
+    presentacionB: DEBUG
+    negocioB: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+# URLs de otros microservicios
+microservices:
+  usuarios:
+    url: http://localhost:8081
+  territorial:
+    url: http://localhost:8082
+
+# Información del microservicio
+info:
+  app:
+    name: Microservicio de Inspecciones
+    description: Gestión de inspecciones fitosanitarias, resultados y plagas
+    version: 1.0.0
+    port: 8083

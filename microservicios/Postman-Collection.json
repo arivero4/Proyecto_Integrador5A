@@ -1,0 +1,267 @@
+{
+  "info": {
+    "_postman_id": "agro-microservices-collection",
+    "name": "Sistema Gestión Agrícola - Microservicios",
+    "description": "Colección de APIs REST para microservicios de gestión agrícola",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Checks",
+      "item": [
+        {
+          "name": "MS-USUARIOS Health",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8081/api/usuarios/health"
+          },
+          "response": []
+        },
+        {
+          "name": "MS-TERRITORIAL Health",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8082/api/predios/health"
+          },
+          "response": []
+        },
+        {
+          "name": "MS-INSPECCIONES Health",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8083/api/inspecciones/health"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Usuarios",
+      "item": [
+        {
+          "name": "Crear Usuario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:8081/api/usuarios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Juan Carlos Pérez\",\n  \"email\": \"juan@example.com\",\n  \"telefono\": \"+57 300 123 4567\",\n  \"tipoUsuario\": \"PRODUCTOR\",\n  \"estado\": \"ACTIVO\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Usuarios",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8081/api/usuarios"
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener Usuario",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8081/api/usuarios/1"
+          },
+          "response": []
+        },
+        {
+          "name": "Actualizar Usuario",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:8081/api/usuarios/1",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Juan Carlos Pérez Actualizado\",\n  \"email\": \"juan.nuevo@example.com\",\n  \"telefono\": \"+57 300 999 9999\",\n  \"tipoUsuario\": \"PRODUCTOR\",\n  \"estado\": \"ACTIVO\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Eliminar Usuario",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:8081/api/usuarios/1"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Productores",
+      "item": [
+        {
+          "name": "Crear Productor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:8081/api/productores",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUsuario\": 1,\n  \"cedula\": \"123456789\",\n  \"razonSocial\": \"Fincas Pérez & Asociados\",\n  \"numeroHectareas\": 50.5,\n  \"certificaciones\": \"Certificado Orgánico\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Productores",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8081/api/productores"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Predios",
+      "item": [
+        {
+          "name": "Crear Predio",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:8082/api/predios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idProductor\": 1,\n  \"nombre\": \"Finca Las Mercedes\",\n  \"idMunicipio\": 1,\n  \"areaHectareas\": 50.5,\n  \"latitud\": 4.7110,\n  \"longitud\": -74.0721,\n  \"estado\": \"ACTIVO\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Predios",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8082/api/predios"
+          },
+          "response": []
+        },
+        {
+          "name": "Obtener Predio",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8082/api/predios/1"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Municipios",
+      "item": [
+        {
+          "name": "Crear Municipio",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:8082/api/municipios",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Bogotá\",\n  \"departamento\": \"Cundinamarca\",\n  \"codigoDane\": \"11001\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Municipios",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8082/api/municipios"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Inspecciones",
+      "item": [
+        {
+          "name": "Crear Inspección",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:8083/api/inspecciones",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idPredio\": 1,\n  \"idAsistente\": 1,\n  \"fechaInspeccion\": \"2024-05-01T10:00:00\",\n  \"observaciones\": \"Inspección inicial del predio\",\n  \"estado\": \"EN_PROCESO\"\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Inspecciones",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8083/api/inspecciones"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Plagas",
+      "item": [
+        {
+          "name": "Crear Plaga",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "http://localhost:8083/api/plagas",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idInspeccion\": 1,\n  \"nombrePlaga\": \"Roya del Café\",\n  \"tipoPlaga\": \"HONGO\",\n  \"severidad\": \"MEDIA\",\n  \"porcentajeAfectacion\": 35.5\n}"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar Plagas",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:8083/api/plagas"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
