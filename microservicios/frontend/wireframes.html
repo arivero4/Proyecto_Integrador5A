@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wireframes – AgroGestión | Documentación de Diseño de Interfaz</title>
+<style>
+  /* ── Variables ── */
+  :root {
+    --gray-50:#f9fafb; --gray-100:#f3f4f6; --gray-200:#e5e7eb;
+    --gray-300:#d1d5db; --gray-400:#9ca3af; --gray-500:#6b7280;
+    --gray-600:#4b5563; --gray-700:#374151; --gray-800:#1f2937;
+    --blue-100:#dbeafe; --blue-600:#2563eb;
+    --accent:#1d4ed8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--gray-100);
+    color: var(--gray-800);
+    line-height: 1.5;
+  }
+
+  /* ── Portada ── */
+  .cover {
+    background: var(--gray-800);
+    color: #fff;
+    padding: 80px 40px;
+    text-align: center;
+  }
+  .cover .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 999px;
+    margin-bottom: 24px;
+  }
+  .cover h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 12px; }
+  .cover h2 { font-size: 1.25rem; font-weight: 400; color: var(--gray-400); margin-bottom: 40px; }
+  .cover-meta {
+    display: flex; gap: 40px; justify-content: center; flex-wrap: wrap;
+    border-top: 1px solid var(--gray-600); padding-top: 32px; margin-top: 32px;
+  }
+  .cover-meta div { text-align: left; }
+  .cover-meta label { font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; color: var(--gray-400); display: block; }
+  .cover-meta span  { font-size: .95rem; font-weight: 600; }
+
+  /* ── Navegación del doc ── */
+  .doc-nav {
+    background: #fff;
+    border-bottom: 1px solid var(--gray-200);
+    padding: 12px 32px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .doc-nav a {
+    font-size: .8rem; font-weight: 600;
+    color: var(--gray-600);
+    text-decoration: none;
+    padding: 4px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--gray-200);
+    transition: all .15s;
+  }
+  .doc-nav a:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* ── Secciones del doc ── */
+  .doc-section { padding: 56px 40px; }
+  .doc-section:nth-child(even) { background: #fff; }
+  .section-header { margin-bottom: 40px; }
+  .section-header .screen-number {
+    font-size: .7rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: .12em; color: var(--accent); margin-bottom: 6px;
+  }
+  .section-header h2 { font-size: 1.9rem; font-weight: 800; color: var(--gray-800); }
+  .section-header p  { color: var(--gray-500); margin-top: 6px; max-width: 640px; }
+
+  /* ── Layout comparación desktop/mobile ── */
+  .layout-compare {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 32px;
+    align-items: start;
+  }
+  @media(max-width:900px){ .layout-compare { grid-template-columns: 1fr; } }
+
+  .wf-label {
+    font-size: .72rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .1em; color: var(--gray-400);
+    margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+  }
+  .wf-label::after { content:''; flex:1; height:1px; background:var(--gray-200); }
+
+  /* ── Frame del wireframe ── */
+  .wf-frame {
+    background: var(--gray-50);
+    border: 2px solid var(--gray-300);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    font-family: monospace;
+  }
+  .wf-frame.mobile {
+    max-width: 360px;
+  }
+
+  /* ── Barra del navegador ── */
+  .browser-bar {
+    background: var(--gray-200);
+    padding: 8px 12px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    border-bottom: 1px solid var(--gray-300);
+  }
+  .browser-dot { width:10px; height:10px; border-radius:50%; background:var(--gray-400); }
+  .browser-url {
+    flex:1; background:#fff; border-radius:4px;
+    font-size:.7rem; color:var(--gray-500);
+    padding:3px 8px; border:1px solid var(--gray-300);
+    margin: 0 8px;
+  }
+
+  /* ── Barra status mobile ── */
+  .mobile-bar {
+    background: var(--gray-700);
+    color:#fff;
+    font-size:.65rem;
+    padding:4px 12px;
+    display:flex; justify-content:space-between;
+  }
+
+  /* ── Componentes wireframe ── */
+  .wf-content { padding: 16px; }
+
+  /* Navbar */
+  .wf-navbar {
+    background: var(--gray-300);
+    padding: 10px 16px;
+    display: flex; justify-content:space-between; align-items:center;
+    border-bottom: 2px solid var(--gray-400);
+  }
+  .wf-logo-box {
+    background: var(--gray-500);
+    color:#fff; font-size:.7rem; font-weight:700;
+    padding:4px 10px; border-radius:4px;
+  }
+  .wf-nav-links { display:flex; gap:8px; }
+  .wf-nav-link {
+    background: var(--gray-400);
+    color:#fff; font-size:.65rem;
+    padding:3px 8px; border-radius:3px;
+  }
+  .wf-nav-link.active { background: var(--gray-700); }
+  .wf-avatar {
+    width:28px; height:28px; border-radius:50%;
+    background: var(--gray-500);
+    display:flex; align-items:center; justify-content:center;
+    font-size:.6rem; color:#fff;
+  }
+
+  /* Inputs */
+  .wf-input {
+    background:#fff; border:1.5px solid var(--gray-400);
+    border-radius:4px; padding:7px 10px;
+    font-size:.72rem; color:var(--gray-500);
+    width:100%; margin-bottom:8px;
+    display:block;
+  }
+  .wf-label-field {
+    font-size:.65rem; font-weight:700; color:var(--gray-500);
+    text-transform:uppercase; letter-spacing:.05em;
+    display:block; margin-bottom:3px;
+  }
+  .wf-field { margin-bottom:12px; }
+
+  /* Botones */
+  .wf-btn {
+    background: var(--gray-500);
+    color:#fff; font-size:.7rem; font-weight:700;
+    padding:8px 16px; border-radius:4px;
+    display:inline-block; text-align:center;
+    cursor:default;
+  }
+  .wf-btn.primary { background:var(--gray-700); }
+  .wf-btn.full    { width:100%; display:block; }
+  .wf-btn.sm      { padding:4px 10px; font-size:.62rem; }
+  .wf-btn.danger  { background:var(--gray-500); }
+
+  /* Cards / panels */
+  .wf-card {
+    background:#fff; border:1.5px solid var(--gray-300);
+    border-radius:6px; padding:12px; margin-bottom:10px;
+  }
+  .wf-card-title {
+    font-size:.72rem; font-weight:700; color:var(--gray-600);
+    margin-bottom:6px; padding-bottom:6px;
+    border-bottom:1px solid var(--gray-200);
+  }
+
+  /* Métricas */
+  .wf-metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:12px; }
+  .wf-metric {
+    background:#fff; border:1.5px solid var(--gray-300);
+    border-radius:6px; padding:10px; text-align:center;
+  }
+  .wf-metric .num { font-size:1.3rem; font-weight:700; color:var(--gray-600); }
+  .wf-metric .lbl { font-size:.6rem; color:var(--gray-400); margin-top:2px; }
+
+  /* Tabla */
+  .wf-table { width:100%; border-collapse:collapse; font-size:.67rem; }
+  .wf-table th {
+    background:var(--gray-200); color:var(--gray-600);
+    padding:6px 8px; text-align:left; font-weight:700;
+    border-bottom:2px solid var(--gray-300);
+    text-transform:uppercase; font-size:.6rem;
+  }
+  .wf-table td {
+    padding:6px 8px; border-bottom:1px solid var(--gray-100);
+    color:var(--gray-500);
+  }
+  .wf-table tr:nth-child(even) td { background:var(--gray-50); }
+
+  /* Badge estado */
+  .wf-badge {
+    display:inline-block; background:var(--gray-300);
+    color:var(--gray-600); font-size:.55rem; font-weight:700;
+    padding:2px 7px; border-radius:999px; text-transform:uppercase;
+  }
+
+  /* Mapa placeholder */
+  .wf-map {
+    background: repeating-linear-gradient(
+      45deg, var(--gray-200), var(--gray-200) 4px,
+      var(--gray-100) 4px, var(--gray-100) 16px
+    );
+    border:1.5px solid var(--gray-300);
+    border-radius:6px; height:140px;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--gray-400); font-size:.7rem; font-weight:700;
+    letter-spacing:.05em;
+  }
+  .wf-map-pin {
+    display:inline-block; width:14px; height:14px;
+    background:var(--gray-600); border-radius:50% 50% 50% 0;
+    transform:rotate(-45deg); margin-right:6px;
+  }
+
+  /* Breadcrumb */
+  .wf-breadcrumb {
+    font-size:.63rem; color:var(--gray-400); margin-bottom:12px;
+    display:flex; gap:4px; align-items:center;
+  }
+  .wf-breadcrumb span { color:var(--gray-600); font-weight:600; }
+
+  /* Steps */
+  .wf-steps { display:flex; gap:0; margin-bottom:16px; }
+  .wf-step {
+    flex:1; text-align:center; padding:8px 4px;
+    background:var(--gray-200); border:1px solid var(--gray-300);
+    font-size:.62rem; font-weight:700; color:var(--gray-500);
+    position:relative;
+  }
+  .wf-step.active { background:var(--gray-600); color:#fff; }
+  .wf-step.done   { background:var(--gray-400); color:#fff; }
+  .wf-step:not(:last-child)::after {
+    content:'▶'; position:absolute; right:-8px; top:50%;
+    transform:translateY(-50%); font-size:.5rem; color:var(--gray-300);
+    z-index:1;
+  }
+
+  /* Sidebar */
+  .wf-sidebar-layout { display:grid; grid-template-columns:140px 1fr; gap:12px; }
+  .wf-sidebar {
+    background:#fff; border:1.5px solid var(--gray-300);
+    border-radius:6px; padding:10px;
+  }
+  .wf-sidebar-item {
+    padding:6px 8px; font-size:.63rem; color:var(--gray-500);
+    border-radius:4px; margin-bottom:3px;
+  }
+  .wf-sidebar-item.active { background:var(--gray-200); color:var(--gray-700); font-weight:700; }
+
+  /* Gráfico placeholder */
+  .wf-chart {
+    background:#fff; border:1.5px solid var(--gray-300);
+    border-radius:6px; padding:10px;
+    height:90px; position:relative; overflow:hidden;
+  }
+  .wf-chart-title { font-size:.6rem; font-weight:700; color:var(--gray-500); margin-bottom:6px; }
+  .wf-bars { display:flex; gap:4px; align-items:flex-end; height:60px; }
+  .wf-bar { flex:1; background:var(--gray-300); border-radius:2px 2px 0 0; }
+
+  /* Imagen placeholder */
+  .wf-img {
+    background: var(--gray-200);
+    border:1.5px dashed var(--gray-400);
+    border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--gray-400); font-size:.65rem; font-weight:700;
+  }
+
+  /* Hamburger menu mobile */
+  .wf-hamburger {
+    display:flex; flex-direction:column; gap:3px; cursor:default;
+  }
+  .wf-hamburger span { display:block; width:18px; height:2px; background:var(--gray-600); }
+
+  /* ── Anotaciones ── */
+  .annotations { margin-top: 24px; }
+  .annotations h4 {
+    font-size:.8rem; font-weight:700; color:var(--gray-700);
+    margin-bottom:10px; text-transform:uppercase; letter-spacing:.05em;
+  }
+  .annotation-list { list-style:none; display:grid; gap:6px; }
+  .annotation-list li {
+    display:flex; gap:10px; align-items:flex-start;
+    font-size:.78rem; color:var(--gray-600);
+  }
+  .ann-num {
+    min-width:20px; height:20px; border-radius:50%;
+    background:var(--gray-700); color:#fff;
+    font-size:.6rem; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; margin-top:1px;
+  }
+
+  /* ── Flujo de navegación ── */
+  .nav-flow {
+    background: var(--gray-50);
+    border:1.5px solid var(--gray-200);
+    border-radius:8px; padding:20px; margin-top:16px;
+  }
+  .nav-flow h4 { font-size:.78rem; font-weight:700; color:var(--gray-700); margin-bottom:12px; }
+  .flow-diagram {
+    display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+  }
+  .flow-box {
+    background: var(--gray-200);
+    border:1.5px solid var(--gray-400);
+    border-radius:6px; padding:6px 14px;
+    font-size:.7rem; font-weight:700; color:var(--gray-700);
+    white-space:nowrap;
+  }
+  .flow-box.current { background:var(--gray-700); color:#fff; border-color:var(--gray-700); }
+  .flow-arrow { color:var(--gray-400); font-size:1rem; }
+
+  /* ── Leyenda de componentes ── */
+  .legend-section {
+    background: var(--gray-800);
+    color:#fff;
+    padding: 56px 40px;
+  }
+  .legend-section h2 { font-size:1.5rem; font-weight:800; margin-bottom:32px; }
+  .legend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
+    gap: 16px;
+  }
+  .legend-item {
+    background: var(--gray-700);
+    border-radius:8px; padding:14px;
+  }
+  .legend-item .preview { margin-bottom:8px; }
+  .legend-item .lname { font-size:.75rem; font-weight:700; }
+  .legend-item .ldesc { font-size:.67rem; color:var(--gray-400); margin-top:2px; }
+
+  /* ── Tabla de flujo ── */
+  .flow-table { width:100%; border-collapse:collapse; margin-top:20px; font-size:.8rem; }
+  .flow-table th {
+    background:var(--gray-700); color:#fff;
+    padding:8px 14px; text-align:left; font-size:.7rem;
+    text-transform:uppercase; letter-spacing:.05em;
+  }
+  .flow-table td { padding:8px 14px; border-bottom:1px solid var(--gray-200); color:var(--gray-600); }
+  .flow-table tr:nth-child(even) td { background:var(--gray-50); }
+
+  /* ── Util ── */
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
+  .mt-8  { margin-top:8px; }
+  .mt-12 { margin-top:12px; }
+  .mb-8  { margin-bottom:8px; }
+  .flex  { display:flex; }
+  .flex-between { display:flex; justify-content:space-between; align-items:center; }
+  .gap-8 { gap:8px; }
+  .text-xs { font-size:.65rem; color:var(--gray-400); }
+  .divider { height:1px; background:var(--gray-200); margin:10px 0; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     PORTADA
+═══════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="badge">Documentación de Diseño UI</div>
+  <h1>AgroGestión</h1>
+  <h2>Sistema de Gestión Agrícola — Wireframes de Baja Fidelidad</h2>
+  <div class="cover-meta">
+    <div><label>Proyecto</label><span>Proyecto Integrador — Ingeniería</span></div>
+    <div><label>Versión del documento</label><span>v1.0 — Mayo 2026</span></div>
+    <div><label>Tipo de wireframe</label><span>Baja Fidelidad (Lo-Fi)</span></div>
+    <div><label>Pantallas documentadas</label><span>6 pantallas · 12 vistas</span></div>
+  </div>
+</div>
+
+<!-- Navegación del documento -->
+<nav class="doc-nav">
+  <a href="#intro">Introducción</a>
+  <a href="#s1">① Login</a>
+  <a href="#s2">② Dashboard</a>
+  <a href="#s3">③ Usuarios</a>
+  <a href="#s4">④ Predios</a>
+  <a href="#s5">⑤ Inspecciones</a>
+  <a href="#s6">⑥ Detalle</a>
+  <a href="#flujo">Flujo</a>
+  <a href="#leyenda">Leyenda</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════
+     INTRODUCCIÓN
+═══════════════════════════════════════════════════ -->
+<section class="doc-section" id="intro">
+  <div class="section-header">
+    <div class="screen-number">Introducción</div>
+    <h2>Descripción del Sistema</h2>
+    <p>AgroGestión es una plataforma web de microservicios para la gestión agrícola. Permite administrar usuarios (productores y asistentes técnicos), predios, cultivos e inspecciones fitosanitarias. Los wireframes a continuación representan el diseño de interfaz de usuario en baja fidelidad.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:24px;">
+    <div class="wf-card">
+      <div class="wf-card-title">🏗 Arquitectura UI</div>
+      <div class="text-xs" style="color:var(--gray-600)">
+        Aplicación web SPA (Single Page Application) que consume 3 microservicios REST:<br><br>
+        · MS-Usuarios (8081)<br>
+        · MS-Territorial (8082)<br>
+        · MS-Inspecciones (8083)
+      </div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-card-title">📐 Convenciones de wireframe</div>
+      <div class="text-xs" style="color:var(--gray-600)">
+        · Cajas grises = contenedores / secciones<br>
+        · Rayado diagonal = imágenes / mapas<br>
+        · Texto en mayúsculas = labels de campo<br>
+        · [X] = botón de cierre / acción<br>
+        · ▶ = navegación / flujo
+      </div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-card-title">📱 Responsividad</div>
+      <div class="text-xs" style="color:var(--gray-600)">
+        Cada pantalla se documenta en:<br><br>
+        · Desktop: 1280px de ancho<br>
+        · Mobile: 375px de ancho<br><br>
+        Enfoque Mobile-First.
+      </div>
+    </div>
+    <div class="wf-card">
+      <div class="wf-card-title">🔒 Autenticación</div>
+      <div class="text-xs" style="color:var(--gray-600)">
+        Todas las pantallas (excepto Login) requieren JWT. El token se almacena en sessionStorage y se envía en cada petición como:<br><br>
+        Authorization: Bearer &lt;token&gt;
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     PANTALLA 1 — LOGIN
+═══════════════════════════════════════════════════ -->
+<section class="doc-section" id="s1">
+  <div class="section-header">
+    <div class="screen-number">Pantalla 01 / 06</div>
+    <h2>Login — Inicio de Sesión</h2>
+    <p>Punto de entrada al sistema. El usuario ingresa credenciales que se validan contra <code>POST /auth/login</code> en MS-Usuarios (8081). Si es exitoso recibe un JWT.</p>
+  </div>
+
+  <div class="layout-compare">
+    <!-- Desktop -->
+    <div>
+      <div class="wf-label">Desktop — 1280px</div>
+      <div class="wf-frame">
+        <div class="browser-bar">
+          <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+          <div class="browser-url">localhost:3000/login</div>
+        </div>
+        <!-- Split layout -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;min-height:420px;">
+          <!-- Left panel ilustrativo -->
+          <div style="background:var(--gray-700);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;">
+            <div style="font-size:2.5rem;margin-bottom:12px;">🌾</div>
+            <div style="color:#fff;font-size:.9rem;font-weight:700;text-align:center;">AgroGestión</div>
+            <div style="color:var(--gray-400);font-size:.65rem;text-align:center;margin-top:6px;">Sistema de Gestión Agrícola</div>
+            <div style="margin-top:24px;display:flex;flex-direction:column;gap:8px;width:100%;">
+              <div style="background:var(--gray-600);border-radius:6px;padding:10px;color:var(--gray-300);font-size:.6rem;">✓ Gestión de productores</div>
+              <div style="background:var(--gray-600);border-radius:6px;padding:10px;color:var(--gray-300);font-size:.6rem;">✓ Control de predios y cultivos</div>
+              <div style="background:var(--gray-600);border-radius:6px;padding:10px;color:var(--gray-300);font-size:.6rem;">✓ Inspecciones fitosanitarias</div>
+            </div>
+          </div>
+          <!-- Right panel form -->
+          <div class="wf-content" style="display:flex;flex-direction:column;justify-content:center;padding:40px;">
+            <div style="font-size:.8rem;font-weight:700;color:var(--gray-600);margin-bottom:20px;">INICIAR SESIÓN</div>
+            <div class="wf-field">
+              <span class="wf-label-field">EMAIL</span>
+              <div class="wf-input">usuario@agro.com</div>
+            </div>
+            <div class="wf-field">
+              <span class="wf-label-field">CONTRASEÑA</span>
+              <div class="wf-input">••••••••</div>
+            </div>
+            <div style="text-align:right;font-size:.62rem;color:var(--gray-400);margin-bottom:16px;">¿Olvidaste tu contraseña?</div>
+            <div class="wf-btn primary full" style="padding:10px;">INGRESAR AL SISTEMA</div>
+            <div style="text-align:center;margin-top:12px;font-size:.62rem;color:var(--gray-400);">
+              ⓘ Solo personal autorizado
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile -->
+    <div>
+      <div class="wf-label">Mobile — 375px</div>
+      <div class="wf-frame mobile">
+        <div class="mobile-bar"><span>9:41</span><span>● ▼ 🔋</span></div>
+        <div class="wf-content" style="padding:24px 20px;">
+          <div style="text-align:center;margin-bottom:24px;">
+            <div style="font-size:2rem;margin-bottom:6px;">🌾</div>
+            <div style="font-size:.85rem;font-weight:800;color:var(--gray-700);">AgroGestión</div>
+            <div style="font-size:.6rem;color:var(--gray-400);">Sistema de Gestión Agrícola</div>
+          </div>
+          <div class="wf-field">
+            <span class="wf-label-field">EMAIL</span>
+            <div class="wf-input">usuario@agro.com</div>
+          </div>
+          <div class="wf-field">
+            <span class="wf-label-field">CONTRASEÑA</span>
+            <div class="wf-input">••••••••</div>
+          </div>
+          <div style="text-align:right;font-size:.6rem;color:var(--gray-400);margin-bottom:14px;">¿Olvidaste tu contraseña?</div>
+          <div class="wf-btn primary full">INGRESAR</div>
+          <div style="text-align:center;margin-top:16px;">
+            <div style="height:1px;background:var(--gray-200);margin-bottom:12px;"></div>
+            <div style="font-size:.6rem;color:var(--gray-400);">ⓘ Solo personal autorizado</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annotations">
+    <h4>Anotaciones</h4>
+    <ul class="annotation-list">
+      <li><div class="ann-num">1</div><div><strong>Panel izquierdo (desktop):</strong> Panel decorativo con descripción del sistema. Oculto en mobile para priorizar el formulario.</div></li>
+      <li><div class="ann-num">2</div><div><strong>Campo Email:</strong> Tipo <code>email</code> con validación de formato antes de enviar. Placeholder con ejemplo.</div></li>
+      <li><div class="ann-num">3</div><div><strong>Campo Contraseña:</strong> Tipo <code>password</code>. Mínimo 6 caracteres. Opción de mostrar/ocultar con ícono.</div></li>
+      <li><div class="ann-num">4</div><div><strong>Botón Ingresar:</strong> Llama a <code>POST http://localhost:8081/auth/login</code>. En caso de error muestra mensaje inline en rojo.</div></li>
+      <li><div class="ann-num">5</div><div><strong>Error de credenciales:</strong> Se muestra bajo el formulario: "Email o contraseña incorrectos". No especifica cuál campo falló (seguridad).</div></li>
+    </ul>
+  </div>
+
+  <div class="nav-flow">
+    <h4>Flujo de navegación desde esta pantalla</h4>
+    <div class="flow-diagram">
+      <div class="flow-box current">Login</div>
+      <div class="flow-arrow">→ éxito →</div>
+      <div class="flow-box">Dashboard</div>
+      <div class="flow-arrow">· error ·</div>
+      <div class="flow-box">Mensaje de error (misma pantalla)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     PANTALLA 2 — DASHBOARD
+═══════════════════════════════════════════════════ -->
+<section class="doc-section" id="s2">
+  <div class="section-header">
+    <div class="screen-number">Pantalla 02 / 06</div>
+    <h2>Dashboard — Panel Principal</h2>
+    <p>Vista general del sistema con métricas clave, accesos rápidos y estado de los microservicios. Primera pantalla visible tras el login exitoso.</p>
+  </div>
+
+  <div class="layout-compare">
+    <!-- Desktop -->
+    <div>
+      <div class="wf-label">Desktop — 1280px</div>
+      <div class="wf-frame">
+        <div class="browser-bar">
+          <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+          <div class="browser-url">localhost:3000/dashboard</div>
+        </div>
+        <!-- Navbar -->
+        <div class="wf-navbar">
+          <div class="wf-logo-box">🌾 AgroGestión</div>
+          <div class="wf-nav-links">
+            <div class="wf-nav-link active">Dashboard</div>
+            <div class="wf-nav-link">Usuarios</div>
+            <div class="wf-nav-link">Predios</div>
+            <div class="wf-nav-link">Inspecciones</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <div class="wf-avatar">JG</div>
+            <div style="font-size:.6rem;color:var(--gray-500);">Juan García ▼</div>
+          </div>
+        </div>
+        <div class="wf-content">
+          <!-- Breadcrumb -->
+          <div class="wf-breadcrumb">Inicio / <span>Dashboard</span></div>
+          <div class="flex-between mb-8">
+            <div style="font-size:.8rem;font-weight:700;color:var(--gray-700);">Resumen General</div>
+            <div style="font-size:.62rem;color:var(--gray-400);">Actualizado: hace 2 min</div>
+          </div>
+          <!-- Métricas -->
+          <div class="wf-metrics">
+            <div class="wf-metric"><div class="num">24</div><div class="lbl">Usuarios activos</div></div>
+            <div class="wf-metric"><div class="num">87</div><div class="lbl">Predios registrados</div></div>
+            <div class="wf-metric"><div class="num">12</div><div class="lbl">Inspecciones pendientes</div></div>
+            <div class="wf-metric"><div class="num">3</div><div class="lbl">Plagas detectadas</div></div>
+          </div>
+          <!-- Charts + quick access -->
+          <div class="two-col">
+            <div class="wf-card">
+              <div class="wf-card-title">Inspecciones por mes</div>
+              <div class="wf-chart">
+                <div class="wf-bars">
+                  <div class="wf-bar" style="height:40%"></div>
+                  <div class="wf-bar" style="height:65%"></div>
+                  <div class="wf-bar" style="height:55%"></div>
+                  <div class="wf-bar" style="height:80%"></div>
+                  <div class="wf-bar" style="height:70%"></div>
+                  <div class="wf-bar" style="height:90%"></div>
+                </div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:.55rem;color:var(--gray-400);margin-top:4px;">
+                <span>Ene</span><span>Feb</span><span>Mar</span><span>Abr</span><span>May</span><span>Jun</span>
+              </div>
+            </div>
+            <div class="wf-card">
+              <div class="wf-card-title">Accesos rápidos</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;">
+                <div class="wf-btn primary" style="padding:12px;text-align:center;font-size:.65rem;">➕ Nuevo Usuario</div>
+                <div class="wf-btn primary" style="padding:12px;text-align:center;font-size:.65rem;">📍 Nuevo Predio</div>
+                <div class="wf-btn primary" style="padding:12px;text-align:center;font-size:.65rem;">🔍 Nueva Inspección</div>
+                <div class="wf-btn" style="padding:12px;text-align:center;font-size:.65rem;">📊 Ver Reportes</div>
+              </div>
+            </div>
+          </div>
+          <!-- Estado microservicios -->
+          <div class="wf-card mt-12">
+            <div class="wf-card-title">Estado de Microservicios</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+              <div style="background:var(--gray-100);border-radius:4px;padding:8px;font-size:.65rem;">
+                <span style="font-weight:700;">MS-Usuarios</span><br>
+                <span style="color:var(--gray-500);">:8081</span>
+                <div class="wf-badge" style="margin-top:4px;display:block;text-align:center;">UP ✓</div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:4px;padding:8px;font-size:.65rem;">
+                <span style="font-weight:700;">MS-Territorial</span><br>
+                <span style="color:var(--gray-500);">:8082</span>
+                <div class="wf-badge" style="margin-top:4px;display:block;text-align:center;">UP ✓</div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:4px;padding:8px;font-size:.65rem;">
+                <span style="font-weight:700;">MS-Inspecciones</span><br>
+                <span style="color:var(--gray-500);">:8083</span>
+                <div class="wf-badge" style="margin-top:4px;display:block;text-align:center;">UP ✓</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile -->
+    <div>
+      <div class="wf-label">Mobile — 375px</div>
+      <div class="wf-frame mobile">
+        <div class="mobile-bar"><span>9:41</span><span>● ▼ 🔋</span></div>
+        <div class="wf-navbar" style="padding:8px 12px;">
+          <div class="wf-logo-box" style="font-size:.6rem;">🌾 Agro</div>
+          <div class="wf-hamburger"><span></span><span></span><span></span></div>
+        </div>
+        <div class="wf-content">
+          <div style="font-size:.72rem;font-weight:700;color:var(--gray-700);margin-bottom:10px;">Resumen</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;">
+            <div class="wf-metric"><div class="num" style="font-size:1rem;">24</div><div class="lbl">Usuarios</div></div>
+            <div class="wf-metric"><div class="num" style="font-size:1rem;">87</div><div class="lbl">Predios</div></div>
+            <div class="wf-metric"><div class="num" style="font-size:1rem;">12</div><div class="lbl">Pendientes</div></div>
+            <div class="wf-metric"><div class="num" style="font-size:1rem;">3</div><div class="lbl">Plagas</div></div>
+          </div>
+          <div class="wf-card">
+            <div class="wf-card-title" style="font-size:.65rem;">Accesos rápidos</div>
+            <div class="wf-btn primary full" style="margin-bottom:6px;font-size:.65rem;">➕ Nuevo usuario</div>
+            <div class="wf-btn primary full" style="margin-bottom:6px;font-size:.65rem;">🔍 Nueva inspección</div>
+          </div>
+          <!-- Bottom nav -->
+          <div style="position:relative;margin-top:12px;background:var(--gray-200);border-radius:6px;padding:8px;display:flex;justify-content:space-around;font-size:.55rem;color:var(--gray-500);">
+            <div style="text-align:center;font-weight:700;color:var(--gray-700);">🏠 Inicio</div>
+            <div style="text-align:center;">👥 Usuarios</div>
+            <div style="text-align:center;">📍 Predios</div>
+            <div style="text-align:center;">🔍 Inspect.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annotations">
+    <h4>Anotaciones</h4>
+    <ul class="annotation-list">
+      <li><div class="ann-num">1</div><div><strong>Navbar principal:</strong> Persiste en todas las pantallas post-login. Muestra el nombre del usuario autenticado con opción de cerrar sesión.</div></li>
+      <li><div class="ann-num">2</div><div><strong>Tarjetas de métricas:</strong> Consumen los 3 microservicios en paralelo al cargar. Muestran skeleton loader mientras esperan respuesta.</div></li>
+      <li><div class="ann-num">3</div><div><strong>Gráfico de barras:</strong> Inspecciones del último semestre. Datos de <code>GET /api/inspecciones</code>.</div></li>
+      <li><div class="ann-num">4</div><div><strong>Estado de microservicios:</strong> Llama a <code>/actuator/health</code> de cada servicio. Verde = UP, rojo = DOWN.</div></li>
+      <li><div class="ann-num">5</div><div><strong>Mobile — Navegación inferior:</strong> En mobile se reemplaza el navbar horizontal por una barra de navegación inferior con íconos.</div></li>
+    </ul>
+  </div>
+
+  <div class="nav-flow">
+    <h4>Flujo de navegación desde esta pantalla</h4>
+    <div class="flow-diagram">
+      <div class="flow-box">Login</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box current">Dashboard</div>
+      <div class="flow-arrow">→ nav →</div>
+      <div class="flow-box">Usuarios / Predios / Inspecciones</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     PANTALLA 3 — GESTIÓN DE USUARIOS
+═══════════════════════════════════════════════════ -->
+<section class="doc-section" id="s3">
+  <div class="section-header">
+    <div class="screen-number">Pantalla 03 / 06</div>
+    <h2>Gestión de Usuarios</h2>
+    <p>Listado paginado de usuarios con búsqueda y filtro. Panel lateral para crear/editar usuario. Consume <code>GET /api/usuarios</code> y <code>POST/PUT /api/usuarios</code>.</p>
+  </div>
+
+  <div class="layout-compare">
+    <!-- Desktop -->
+    <div>
+      <div class="wf-label">Desktop — Listado + Formulario lateral</div>
+      <div class="wf-frame">
+        <div class="browser-bar">
+          <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+          <div class="browser-url">localhost:3000/usuarios</div>
+        </div>
+        <div class="wf-navbar">
+          <div class="wf-logo-box">🌾 AgroGestión</div>
+          <div class="wf-nav-links">
+            <div class="wf-nav-link">Dashboard</div>
+            <div class="wf-nav-link active">Usuarios</div>
+            <div class="wf-nav-link">Predios</div>
+            <div class="wf-nav-link">Inspecciones</div>
+          </div>
+          <div class="wf-avatar">JG</div>
+        </div>
+        <div class="wf-content">
+          <div class="wf-breadcrumb">Inicio / <span>Usuarios</span></div>
+          <!-- Header + Search -->
+          <div class="flex-between mb-8">
+            <div style="font-size:.8rem;font-weight:700;color:var(--gray-700);">Usuarios del sistema</div>
+            <div class="wf-btn primary sm">+ Nuevo usuario</div>
+          </div>
+          <div style="display:flex;gap:8px;margin-bottom:10px;">
+            <div class="wf-input" style="margin:0;flex:1;">🔍 Buscar por nombre o email...</div>
+            <div class="wf-btn sm">Filtrar ▼</div>
+          </div>
+          <!-- Tabla + Form side-by-side -->
+          <div style="display:grid;grid-template-columns:1fr 280px;gap:12px;">
+            <!-- Tabla -->
+            <div>
+              <table class="wf-table">
+                <tr><th>#</th><th>Nombre</th><th>Email</th><th>Tipo</th><th>Estado</th><th>Acciones</th></tr>
+                <tr><td>1</td><td>Juan García</td><td>juan@agro.com</td><td><span class="wf-badge">PRODUCTOR</span></td><td><span class="wf-badge">ACTIVO</span></td><td><div class="wf-btn sm">✏ ✗</div></td></tr>
+                <tr><td>2</td><td>María López</td><td>maria@agro.com</td><td><span class="wf-badge">ASISTENTE</span></td><td><span class="wf-badge">ACTIVO</span></td><td><div class="wf-btn sm">✏ ✗</div></td></tr>
+                <tr><td>3</td><td>Carlos Ruiz</td><td>carlos@agro.com</td><td><span class="wf-badge">PRODUCTOR</span></td><td><span class="wf-badge">INACTIVO</span></td><td><div class="wf-btn sm">✏ ✗</div></td></tr>
+                <tr><td>4</td><td>Ana Gómez</td><td>ana@agro.com</td><td><span class="wf-badge">ASISTENTE</span></td><td><span class="wf-badge">ACTIVO</span></td><td><div class="wf-btn sm">✏ ✗</div></td></tr>
+              </table>
+              <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:.6rem;color:var(--gray-400);">
+                <span>Mostrando 1–4 de 24 usuarios</span>
+                <span>[ 1 ] 2  3  ... ▶</span>
+              </div>
+            </div>
+            <!-- Panel form -->
+            <div class="wf-card" style="background:var(--gray-50);">
+              <div class="wf-card-title">✏ Editar usuario</div>
+              <div class="wf-field">
+                <span class="wf-label-field">NOMBRE COMPLETO</span>
+                <div class="wf-input">Juan García</div>
+              </div>
+              <div class="wf-field">
+                <span class="wf-label-field">EMAIL</span>
+                <div class="wf-input">juan@agro.com</div>
+              </div>
+              <div class="wf-field">
+                <span class="wf-label-field">TELÉFONO</span>
+                <div class="wf-input">310 123 4567</div>
+              </div>
+              <div class="wf-field">
+                <span class="wf-label-field">TIPO DE USUARIO</span>
+                <div class="wf-input">PRODUCTOR ▼</div>
+              </div>
+              <div class="wf-field">
+                <span class="wf-label-field">ESTADO</span>
+                <div class="wf-input">ACTIVO ▼</div>
+              </div>
+              <div style="display:flex;gap:6px;margin-top:8px;">
+                <div class="wf-btn primary sm" style="flex:1;text-align:center;">Guardar</div>
+                <div class="wf-btn sm">Cancelar</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile -->
+    <div>
+      <div class="wf-label">Mobile — 375px</div>
+      <div class="wf-frame mobile">
+        <div class="mobile-bar"><span>9:41</span><span>● ▼ 🔋</span></div>
+        <div class="wf-navbar" style="padding:8px 12px;">
+          <div style="font-size:.7rem;font-weight:700;color:var(--gray-700);">👥 Usuarios</div>
+          <div class="wf-btn primary sm">+ Nuevo</div>
+        </div>
+        <div class="wf-content">
+          <div class="wf-input" style="margin-bottom:10px;">🔍 Buscar...</div>
+          <!-- Cards lista -->
+          <div class="wf-card" style="margin-bottom:8px;">
+            <div class="flex-between">
+              <div style="font-size:.72rem;font-weight:700;">Juan García</div>
+              <div class="wf-badge">PRODUCTOR</div>
+            </div>
+            <div style="font-size:.62rem;color:var(--gray-400);margin-top:3px;">juan@agro.com</div>
+            <div class="divider"></div>
+            <div style="display:flex;gap:6px;">
+              <div class="wf-btn sm" style="flex:1;text-align:center;">✏ Editar</div>
+              <div class="wf-btn sm danger">✗</div>
+            </div>
+          </div>
+          <div class="wf-card" style="margin-bottom:8px;">
+            <div class="flex-between">
+              <div style="font-size:.72rem;font-weight:700;">María López</div>
+              <div class="wf-badge">ASISTENTE</div>
+            </div>
+            <div style="font-size:.62rem;color:var(--gray-400);margin-top:3px;">maria@agro.com</div>
+            <div class="divider"></div>
+            <div style="display:flex;gap:6px;">
+              <div class="wf-btn sm" style="flex:1;text-align:center;">✏ Editar</div>
+              <div class="wf-btn sm danger">✗</div>
+            </div>
+          </div>
+          <div style="text-align:center;font-size:.6rem;color:var(--gray-400);">Ver más ▼</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annotations">
+    <h4>Anotaciones</h4>
+    <ul class="annotation-list">
+      <li><div class="ann-num">1</div><div><strong>Listado con paginación:</strong> Consume <code>GET /api/usuarios</code>. La paginación se maneja en el frontend con los datos recibidos.</div></li>
+      <li><div class="ann-num">2</div><div><strong>Búsqueda:</strong> Filtrado en tiempo real (client-side) por nombre o email. Sin petición adicional al servidor.</div></li>
+      <li><div class="ann-num">3</div><div><strong>Panel de formulario (desktop):</strong> Aparece al hacer clic en "Nuevo" o "✏ Editar". Se precarga con los datos del usuario seleccionado en modo edición.</div></li>
+      <li><div class="ann-num">4</div><div><strong>Mobile — Cards:</strong> En lugar de tabla, cada usuario se muestra como tarjeta expandible con acciones de editar y eliminar.</div></li>
+      <li><div class="ann-num">5</div><div><strong>Eliminar:</strong> Muestra diálogo de confirmación antes de llamar a <code>DELETE /api/usuarios/{id}</code>.</div></li>
+    </ul>
+  </div>
+
+  <div class="nav-flow">
+    <h4>Flujo de navegación</h4>
+    <div class="flow-diagram">
+      <div class="flow-box">Dashboard</div>
+      <div class="flow-arrow">→ nav →</div>
+      <div class="flow-box current">Usuarios (listado)</div>
+      <div class="flow-arrow">→ clic editar →</div>
+      <div class="flow-box">Formulario lateral</div>
+      <div class="flow-arrow">→ guardar →</div>
+      <div class="flow-box">Lista actualizada</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     PANTALLA 4 — GESTIÓN DE PREDIOS
+═══════════════════════════════════════════════════ -->
+<section class="doc-section" id="s4">
+  <div class="section-header">
+    <div class="screen-number">Pantalla 04 / 06</div>
+    <h2>Gestión de Predios</h2>
+    <p>Listado de predios agrícolas con vista de mapa integrada. El formulario incluye campos de geolocalización (latitud/longitud). Consume <code>GET/POST/PUT /api/predios</code> y <code>GET /api/municipios</code>.</p>
+  </div>
+
+  <div class="layout-compare">
+    <!-- Desktop -->
+    <div>
+      <div class="wf-label">Desktop — Vista con mapa</div>
+      <div class="wf-frame">
+        <div class="browser-bar">
+          <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+          <div class="browser-url">localhost:3000/predios</div>
+        </div>
+        <div class="wf-navbar">
+          <div class="wf-logo-box">🌾 AgroGestión</div>
+          <div class="wf-nav-links">
+            <div class="wf-nav-link">Dashboard</div>
+            <div class="wf-nav-link">Usuarios</div>
+            <div class="wf-nav-link active">Predios</div>
+            <div class="wf-nav-link">Inspecciones</div>
+          </div>
+          <div class="wf-avatar">JG</div>
+        </div>
+        <div class="wf-content">
+          <div class="wf-breadcrumb">Inicio / <span>Predios</span></div>
+          <div class="flex-between mb-8">
+            <div style="font-size:.8rem;font-weight:700;color:var(--gray-700);">Predios registrados</div>
+            <div style="display:flex;gap:6px;">
+              <div class="wf-btn sm">[ Lista ] [ Mapa ]</div>
+              <div class="wf-btn primary sm">+ Nuevo predio</div>
+            </div>
+          </div>
+          <!-- Layout 3 columnas -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 280px;gap:12px;">
+            <!-- Lista -->
+            <div>
+              <div class="wf-input" style="margin-bottom:8px;">🔍 Buscar predio...</div>
+              <table class="wf-table">
+                <tr><th>Nombre</th><th>Municipio</th><th>Área (Ha)</th><th></th></tr>
+                <tr><td>Finca El Descanso</td><td>Bucaramanga</td><td>25.5</td><td><div class="wf-btn sm">📍 ✏ ✗</div></td></tr>
+                <tr><td>Finca Las Colinas</td><td>Floridablanca</td><td>15.8</td><td><div class="wf-btn sm">📍 ✏ ✗</div></td></tr>
+                <tr><td>Hacienda El Roble</td><td>Girón</td><td>42.0</td><td><div class="wf-btn sm">📍 ✏ ✗</div></td></tr>
+              </table>
+            </div>
+            <!-- Mapa -->
+            <div>
+              <div class="wf-map" style="height:160px;">
+                <div><div style="display:flex;align-items:center;gap:4px;"><div class="wf-map-pin"></div>MAPA — Ubicación del predio</div><div style="font-size:.55rem;margin-top:4px;text-align:center;">Lat: 7.1289 · Lon: -73.1156</div></div>
+              </div>
+              <div style="font-size:.6rem;color:var(--gray-400);margin-top:4px;text-align:center;">📍 Haz clic en el mapa para seleccionar coordenadas</div>
+            </div>
+            <!-- Formulario -->
+            <div class="wf-card" style="background:var(--gray-50);">
+              <div class="wf-card-title">📍 Nuevo predio</div>
+              <div class="wf-field">
+                <span class="wf-label-field">NOMBRE</span>
+                <div class="wf-input">Finca ejemplo</div>
+              </div>
+              <div class="wf-field">
+                <span class="wf-label-field">PRODUCTOR</span>
+                <div class="wf-input">Juan García ▼</div>
+              </div>
+              <div class="wf-field">
+                <span class="wf-label-field">MUNICIPIO</span>
+                <div class="wf-input">Bucaramanga ▼</div>
+              </div>
+              <div class="two-col">
+                <div class="wf-field">
+                  <span class="wf-label-field">ÁREA (HA)</span>
+                  <div class="wf-input">20.5</div>
+                </div>
+                <div class="wf-field">
+                  <span class="wf-label-field">ESTADO</span>
+                  <div class="wf-input">ACTIVO ▼</div>
+                </div>
+              </div>
+              <div class="two-col">
+                <div class="wf-field">
+                  <span class="wf-label-field">LATITUD</span>
+                  <div class="wf-input">7.1289</div>
+                </div>
+                <div class="wf-field">
+                  <span class="wf-label-field">LONGITUD</span>
+                  <div class="wf-input">-73.11</div>
+                </div>
+              </div>
+              <div style="font-size:.58rem;color:var(--gray-400);margin-bottom:8px;">↑ O haz clic en el mapa</div>
+              <div class="wf-btn primary full">Guardar predio</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile -->
+    <div>
+      <div class="wf-label">Mobile — 375px</div>
+      <div class="wf-frame mobile">
+        <div class="mobile-bar"><span>9:41</span><span>● ▼ 🔋</span></div>
+        <div class="wf-navbar" style="padding:8px 12px;">
+          <div style="font-size:.7rem;font-weight:700;">📍 Predios</div>
+          <div class="wf-btn primary sm">+ Nuevo</div>
+        </div>
+        <div class="wf-content">
+          <div style="display:flex;gap:4px;margin-bottom:8px;">
+            <div class="wf-btn sm" style="flex:1;text-align:center;font-size:.6rem;">Lista</div>
+            <div class="wf-btn sm primary" style="flex:1;text-align:center;font-size:.6rem;">Mapa</div>
+          </div>
+          <div class="wf-map" style="height:120px;margin-bottom:10px;">
+            <span style="font-size:.6rem;">📍 MAPA</span>
+          </div>
+          <div class="wf-card" style="margin-bottom:8px;">
+            <div class="flex-between">
+              <div style="font-size:.72rem;font-weight:700;">Finca El Descanso</div>
+              <div class="wf-badge">25.5 Ha</div>
+            </div>
+            <div style="font-size:.6rem;color:var(--gray-400);">Bucaramanga · Lat 7.12, Lon -73.11</div>
+            <div class="divider"></div>
+            <div class="flex gap-8">
+              <div class="wf-btn sm" style="flex:1;text-align:center;">📍 Mapa</div>
+              <div class="wf-btn sm" style="flex:1;text-align:center;">✏ Editar</div>
+            </div>
+          </div>
+          <div class="wf-card">
+            <div class="flex-between">
+              <div style="font-size:.72rem;font-weight:700;">Finca Las Colinas</div>
+              <div class="wf-badge">15.8 Ha</div>
+            </div>
+            <div style="font-size:.6rem;color:var(--gray-400);">Floridablanca</div>
+            <div class="divider"></div>
+            <div class="flex gap-8">
+              <div class="wf-btn sm" style="flex:1;text-align:center;">📍 Mapa</div>
+              <div class="wf-btn sm" style="flex:1;text-align:center;">✏ Editar</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annotations">
+    <h4>Anotaciones</h4>
+    <ul class="annotation-list">
+      <li><div class="ann-num">1</div><div><strong>Toggle Lista / Mapa:</strong> Permite cambiar entre vista de tabla y vista de mapa con todos los predios marcados como pins.</div></li>
+      <li><div class="ann-num">2</div><div><strong>Mapa interactivo:</strong> Placeholder de mapa (puede implementarse con Leaflet.js o Google Maps API). Al hacer clic auto-rellena Latitud/Longitud en el formulario.</div></li>
+      <li><div class="ann-num">3</div><div><strong>Selector Municipio:</strong> Dropdown que carga desde <code>GET /api/municipios</code>. Se autocompleta al escribir.</div></li>
+      <li><div class="ann-num">4</div><div><strong>Selector Productor:</strong> Dropdown que carga desde <code>GET /api/usuarios?tipoUsuario=PRODUCTOR</code>. El backend valida que el productor exista al crear el predio.</div></li>
+      <li><div class="ann-num">5</div><div><strong>Mobile:</strong> El mapa va primero (más visual). La lista aparece como cards debajo. El formulario se muestra como modal de pantalla completa.</div></li>
+    </ul>
+  </div>
+
+  <div class="nav-flow">
+    <h4>Flujo de navegación</h4>
+    <div class="flow-diagram">
+      <div class="flow-box">Dashboard</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box current">Predios (listado)</div>
+      <div class="flow-arrow">→ inspeccionar →</div>
+      <div class="flow-box">Inspecciones (filtrado por predio)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     PANTALLA 5 — GESTIÓN DE INSPECCIONES
+═══════════════════════════════════════════════════ -->
+<section class="doc-section" id="s5">
+  <div class="section-header">
+    <div class="screen-number">Pantalla 05 / 06</div>
+    <h2>Gestión de Inspecciones</h2>
+    <p>Listado de inspecciones fitosanitarias. El formulario de creación es multi-paso (wizard) de 3 pasos: datos básicos → plagas detectadas → resultado y recomendación.</p>
+  </div>
+
+  <div class="layout-compare">
+    <!-- Desktop -->
+    <div>
+      <div class="wf-label">Desktop — Formulario multi-paso (Paso 2 activo)</div>
+      <div class="wf-frame">
+        <div class="browser-bar">
+          <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+          <div class="browser-url">localhost:3000/inspecciones/nueva</div>
+        </div>
+        <div class="wf-navbar">
+          <div class="wf-logo-box">🌾 AgroGestión</div>
+          <div class="wf-nav-links">
+            <div class="wf-nav-link">Dashboard</div>
+            <div class="wf-nav-link">Usuarios</div>
+            <div class="wf-nav-link">Predios</div>
+            <div class="wf-nav-link active">Inspecciones</div>
+          </div>
+          <div class="wf-avatar">JG</div>
+        </div>
+        <div class="wf-content">
+          <div class="wf-breadcrumb">Inicio / Inspecciones / <span>Nueva inspección</span></div>
+
+          <!-- Steps wizard -->
+          <div class="wf-steps">
+            <div class="wf-step done">① Datos básicos</div>
+            <div class="wf-step active">② Plagas</div>
+            <div class="wf-step">③ Resultado</div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 320px;gap:16px;">
+            <!-- Formulario paso 2 -->
+            <div class="wf-card">
+              <div class="wf-card-title">② Plagas detectadas</div>
+              <!-- Plaga existente -->
+              <div style="background:var(--gray-50);border:1px solid var(--gray-300);border-radius:6px;padding:10px;margin-bottom:8px;">
+                <div class="flex-between mb-8">
+                  <div style="font-size:.7rem;font-weight:700;color:var(--gray-600);">Plaga #1</div>
+                  <div class="wf-btn sm danger">✗ Eliminar</div>
+                </div>
+                <div class="two-col">
+                  <div class="wf-field">
+                    <span class="wf-label-field">NOMBRE PLAGA</span>
+                    <div class="wf-input">Gusano Cogollero</div>
+                  </div>
+                  <div class="wf-field">
+                    <span class="wf-label-field">TIPO</span>
+                    <div class="wf-input">INSECTO ▼</div>
+                  </div>
+                </div>
+                <div class="two-col">
+                  <div class="wf-field">
+                    <span class="wf-label-field">SEVERIDAD</span>
+                    <div class="wf-input">MEDIA ▼</div>
+                  </div>
+                  <div class="wf-field">
+                    <span class="wf-label-field">% AFECTACIÓN</span>
+                    <div class="wf-input">15.5</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Agregar nueva plaga -->
+              <div style="border:1.5px dashed var(--gray-300);border-radius:6px;padding:10px;text-align:center;color:var(--gray-400);font-size:.7rem;">
+                <div style="font-size:1.2rem;margin-bottom:4px;">+</div>
+                Agregar otra plaga
+              </div>
+              <!-- Botones navegación -->
+              <div style="display:flex;justify-content:space-between;margin-top:12px;">
+                <div class="wf-btn sm">◀ Anterior</div>
+                <div class="wf-btn primary sm">Siguiente ▶</div>
+              </div>
+            </div>
+
+            <!-- Resumen / sidebar -->
+            <div>
+              <div class="wf-card" style="background:var(--gray-50);margin-bottom:10px;">
+                <div class="wf-card-title">Resumen</div>
+                <div style="font-size:.65rem;color:var(--gray-500);">
+                  <div class="flex-between" style="margin-bottom:4px;"><span>Predio:</span><span style="font-weight:700;">Finca El Descanso</span></div>
+                  <div class="flex-between" style="margin-bottom:4px;"><span>Asistente:</span><span style="font-weight:700;">María López</span></div>
+                  <div class="flex-between" style="margin-bottom:4px;"><span>Fecha:</span><span style="font-weight:700;">2026-05-02</span></div>
+                  <div class="flex-between"><span>Estado:</span><span class="wf-badge">PENDIENTE</span></div>
+                </div>
+              </div>
+              <div class="wf-card" style="background:var(--gray-50);">
+                <div class="wf-card-title">Progreso</div>
+                <div style="background:var(--gray-200);border-radius:999px;height:6px;margin-bottom:6px;">
+                  <div style="background:var(--gray-600);width:66%;height:6px;border-radius:999px;"></div>
+                </div>
+                <div style="font-size:.6rem;color:var(--gray-400);">Paso 2 de 3</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile -->
+    <div>
+      <div class="wf-label">Mobile — Paso 1</div>
+      <div class="wf-frame mobile">
+        <div class="mobile-bar"><span>9:41</span><span>● ▼ 🔋</span></div>
+        <div class="wf-navbar" style="padding:8px 12px;">
+          <div style="font-size:.65rem;font-weight:700;">🔍 Nueva inspección</div>
+          <div style="font-size:.6rem;color:var(--gray-400);">1/3</div>
+        </div>
+        <div class="wf-content">
+          <!-- Progress mobile -->
+          <div style="background:var(--gray-200);border-radius:999px;height:4px;margin-bottom:14px;">
+            <div style="background:var(--gray-600);width:33%;height:4px;border-radius:999px;"></div>
+          </div>
+          <div style="font-size:.72rem;font-weight:700;color:var(--gray-700);margin-bottom:10px;">① Datos básicos</div>
+          <div class="wf-field">
+            <span class="wf-label-field">PREDIO</span>
+            <div class="wf-input">Seleccionar predio ▼</div>
+          </div>
+          <div class="wf-field">
+            <span class="wf-label-field">ASISTENTE TÉCNICO</span>
+            <div class="wf-input">Seleccionar asistente ▼</div>
+          </div>
+          <div class="wf-field">
+            <span class="wf-label-field">FECHA DE INSPECCIÓN</span>
+            <div class="wf-input">2026-05-02 📅</div>
+          </div>
+          <div class="wf-field">
+            <span class="wf-label-field">OBSERVACIONES</span>
+            <div class="wf-input" style="height:60px;">Notas generales...</div>
+          </div>
+          <div class="wf-btn primary full">Siguiente ▶</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Listado de inspecciones -->
+  <div style="margin-top:32px;">
+    <div class="wf-label">Desktop — Vista listado de inspecciones</div>
+    <div class="wf-frame">
+      <div class="browser-bar">
+        <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+        <div class="browser-url">localhost:3000/inspecciones</div>
+      </div>
+      <div class="wf-content" style="padding:16px;">
+        <div class="flex-between mb-8">
+          <div style="font-size:.8rem;font-weight:700;color:var(--gray-700);">Inspecciones fitosanitarias</div>
+          <div class="wf-btn primary sm">+ Nueva inspección</div>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:10px;">
+          <div class="wf-input" style="margin:0;flex:1;">🔍 Buscar por predio o asistente...</div>
+          <div class="wf-btn sm">Estado ▼</div>
+          <div class="wf-btn sm">Fecha ▼</div>
+        </div>
+        <table class="wf-table">
+          <tr><th>ID</th><th>Predio</th><th>Asistente</th><th>Fecha</th><th>Estado</th><th>Plagas</th><th>Acciones</th></tr>
+          <tr><td>#001</td><td>Finca El Descanso</td><td>María López</td><td>2026-05-01</td><td><span class="wf-badge">COMPLETADA</span></td><td>2</td><td><div class="wf-btn sm">Ver · ✏ · ✗</div></td></tr>
+          <tr><td>#002</td><td>Finca Las Colinas</td><td>Pedro Martínez</td><td>2026-05-02</td><td><span class="wf-badge">PENDIENTE</span></td><td>0</td><td><div class="wf-btn sm">Ver · ✏ · ✗</div></td></tr>
+          <tr><td>#003</td><td>Hacienda El Roble</td><td>María López</td><td>2026-04-28</td><td><span class="wf-badge">EN PROCESO</span></td><td>1</td><td><div class="wf-btn sm">Ver · ✏ · ✗</div></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="annotations">
+    <h4>Anotaciones</h4>
+    <ul class="annotation-list">
+      <li><div class="ann-num">1</div><div><strong>Formulario wizard 3 pasos:</strong> Paso 1: datos básicos (predio, asistente, fecha, observaciones). Paso 2: plagas detectadas (múltiples). Paso 3: resultado y recomendación de tratamiento.</div></li>
+      <li><div class="ann-num">2</div><div><strong>Plagas dinámicas:</strong> El usuario puede agregar N plagas. Cada plaga tiene nombre, tipo (INSECTO/HONGO/BACTERIA/VIRUS/MALEZA), severidad y % de afectación.</div></li>
+      <li><div class="ann-num">3</div><div><strong>Validación inter-servicios:</strong> Al crear la inspección, el backend valida que el predio exista en MS-Territorial y el asistente en MS-Usuarios antes de guardar.</div></li>
+      <li><div class="ann-num">4</div><div><strong>Sidebar de resumen (desktop):</strong> Muestra los datos del paso 1 para referencia mientras se completan los pasos 2 y 3.</div></li>
+      <li><div class="ann-num">5</div><div><strong>Barra de progreso (mobile):</strong> Reemplaza el wizard de pasos horizontal por una barra de progreso numérica (1/3, 2/3, 3/3) más compacta.</div></li>
+    </ul>
+  </div>
+
+  <div class="nav-flow">
+    <h4>Flujo del wizard</h4>
+    <div class="flow-diagram">
+      <div class="flow-box current">Paso 1 — Datos</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">Paso 2 — Plagas</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">Paso 3 — Resultado</div>
+      <div class="flow-arrow">→ guardar →</div>
+      <div class="flow-box">Detalle inspección</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     PANTALLA 6 — DETALLE DE INSPECCIÓN
+═══════════════════════════════════════════════════ -->
+<section class="doc-section" id="s6">
+  <div class="section-header">
+    <div class="screen-number">Pantalla 06 / 06</div>
+    <h2>Detalle de Inspección</h2>
+    <p>Vista completa de una inspección: plagas encontradas, nivel de severidad, resultado y recomendación de tratamiento. Permite cambiar el estado de la inspección.</p>
+  </div>
+
+  <div class="layout-compare">
+    <!-- Desktop -->
+    <div>
+      <div class="wf-label">Desktop — Detalle completo</div>
+      <div class="wf-frame">
+        <div class="browser-bar">
+          <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
+          <div class="browser-url">localhost:3000/inspecciones/001</div>
+        </div>
+        <div class="wf-navbar">
+          <div class="wf-logo-box">🌾 AgroGestión</div>
+          <div class="wf-nav-links">
+            <div class="wf-nav-link">Dashboard</div>
+            <div class="wf-nav-link">Usuarios</div>
+            <div class="wf-nav-link">Predios</div>
+            <div class="wf-nav-link active">Inspecciones</div>
+          </div>
+          <div class="wf-avatar">JG</div>
+        </div>
+        <div class="wf-content">
+          <div class="wf-breadcrumb">Inicio / Inspecciones / <span>Inspección #001</span></div>
+          <!-- Header inspección -->
+          <div class="wf-card" style="margin-bottom:10px;">
+            <div class="flex-between">
+              <div>
+                <div style="font-size:.85rem;font-weight:800;color:var(--gray-700);">Inspección #001 — Finca El Descanso</div>
+                <div style="font-size:.65rem;color:var(--gray-400);margin-top:3px;">Bucaramanga, Santander · 2026-05-01</div>
+              </div>
+              <div style="display:flex;gap:6px;align-items:center;">
+                <div class="wf-badge">COMPLETADA</div>
+                <div class="wf-btn sm">✏ Editar</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="three-col" style="font-size:.65rem;color:var(--gray-500);">
+              <div><strong>Asistente:</strong><br>María López</div>
+              <div><strong>Predio:</strong><br>Finca El Descanso (25.5 Ha)</div>
+              <div><strong>Observaciones:</strong><br>Inspección mensual de rutina</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <!-- Plagas -->
+            <div>
+              <div class="wf-card">
+                <div class="wf-card-title">🦟 Plagas detectadas (2)</div>
+                <!-- Plaga 1 -->
+                <div style="background:var(--gray-50);border-radius:6px;padding:10px;margin-bottom:8px;border-left:3px solid var(--gray-500);">
+                  <div class="flex-between mb-8">
+                    <div style="font-size:.72rem;font-weight:700;">Gusano Cogollero</div>
+                    <div class="wf-badge">INSECTO</div>
+                  </div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.62rem;color:var(--gray-500);">
+                    <div>Severidad: <strong>MEDIA</strong></div>
+                    <div>Afectación: <strong>15.5%</strong></div>
+                  </div>
+                  <!-- Barra de severidad -->
+                  <div style="margin-top:6px;">
+                    <div style="background:var(--gray-200);border-radius:999px;height:4px;">
+                      <div style="background:var(--gray-500);width:50%;height:4px;border-radius:999px;"></div>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;font-size:.5rem;color:var(--gray-400);margin-top:2px;">
+                      <span>BAJA</span><span>MEDIA</span><span>ALTA</span><span>CRÍTICA</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- Plaga 2 -->
+                <div style="background:var(--gray-50);border-radius:6px;padding:10px;border-left:3px solid var(--gray-400);">
+                  <div class="flex-between mb-8">
+                    <div style="font-size:.72rem;font-weight:700;">Roya del Maíz</div>
+                    <div class="wf-badge">HONGO</div>
+                  </div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.62rem;color:var(--gray-500);">
+                    <div>Severidad: <strong>BAJA</strong></div>
+                    <div>Afectación: <strong>8.0%</strong></div>
+                  </div>
+                  <div style="margin-top:6px;">
+                    <div style="background:var(--gray-200);border-radius:999px;height:4px;">
+                      <div style="background:var(--gray-400);width:25%;height:4px;border-radius:999px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Resultado -->
+            <div>
+              <div class="wf-card">
+                <div class="wf-card-title">📋 Resultado y tratamiento</div>
+                <div class="flex-between" style="margin-bottom:10px;">
+                  <div style="font-size:.65rem;color:var(--gray-500);">Estado resultado:</div>
+                  <div class="wf-badge">PENDIENTE</div>
+                </div>
+                <div class="wf-field">
+                  <span class="wf-label-field">RECOMENDACIÓN</span>
+                  <div class="wf-input" style="height:50px;padding-top:8px;">Aplicar insecticida de bajo impacto ambiental...</div>
+                </div>
+                <div class="wf-field">
+                  <span class="wf-label-field">TRATAMIENTO SUGERIDO</span>
+                  <div class="wf-input">Cipermetrina 10% — Dosis: 1 L/Ha</div>
+                </div>
+                <div class="wf-field">
+                  <span class="wf-label-field">FECHA SEGUIMIENTO</span>
+                  <div class="wf-input">2026-05-15 📅</div>
+                </div>
+                <div style="display:flex;gap:6px;margin-top:8px;">
+                  <div class="wf-btn primary sm" style="flex:1;text-align:center;">💾 Guardar</div>
+                  <div class="wf-btn sm">Cambiar estado ▼</div>
+                </div>
+              </div>
+
+              <!-- Historial -->
+              <div class="wf-card mt-8" style="font-size:.63rem;color:var(--gray-500);">
+                <div class="wf-card-title">Historial de cambios</div>
+                <div style="margin-bottom:4px;">📌 2026-05-01 10:00 — Inspección creada</div>
+                <div style="margin-bottom:4px;">📌 2026-05-01 10:30 — Plagas registradas</div>
+                <div>📌 2026-05-01 11:00 — Estado: COMPLETADA</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile -->
+    <div>
+      <div class="wf-label">Mobile — 375px</div>
+      <div class="wf-frame mobile">
+        <div class="mobile-bar"><span>9:41</span><span>● ▼ 🔋</span></div>
+        <div class="wf-navbar" style="padding:8px 12px;">
+          <div style="font-size:.65rem;font-weight:700;">◀ Insp. #001</div>
+          <div class="wf-btn sm">✏ Editar</div>
+        </div>
+        <div class="wf-content">
+          <!-- Header -->
+          <div class="wf-card" style="margin-bottom:8px;">
+            <div style="font-size:.72rem;font-weight:800;color:var(--gray-700);">Finca El Descanso</div>
+            <div style="font-size:.6rem;color:var(--gray-400);">2026-05-01 · María López</div>
+            <div class="divider"></div>
+            <div class="flex-between"><span style="font-size:.6rem;color:var(--gray-500);">Estado</span><span class="wf-badge">COMPLETADA</span></div>
+          </div>
+          <!-- Plagas -->
+          <div style="font-size:.7rem;font-weight:700;color:var(--gray-600);margin-bottom:6px;">🦟 Plagas (2)</div>
+          <div class="wf-card" style="margin-bottom:6px;border-left:3px solid var(--gray-500);">
+            <div class="flex-between"><div style="font-size:.68rem;font-weight:700;">Gusano Cogollero</div><div class="wf-badge">INSECTO</div></div>
+            <div style="font-size:.6rem;color:var(--gray-400);">Severidad: MEDIA · Afect: 15.5%</div>
+          </div>
+          <div class="wf-card" style="margin-bottom:8px;border-left:3px solid var(--gray-400);">
+            <div class="flex-between"><div style="font-size:.68rem;font-weight:700;">Roya del Maíz</div><div class="wf-badge">HONGO</div></div>
+            <div style="font-size:.6rem;color:var(--gray-400);">Severidad: BAJA · Afect: 8%</div>
+          </div>
+          <!-- Resultado -->
+          <div style="font-size:.7rem;font-weight:700;color:var(--gray-600);margin-bottom:6px;">📋 Resultado</div>
+          <div class="wf-card">
+            <div style="font-size:.62rem;color:var(--gray-500);margin-bottom:6px;">Aplicar insecticida de bajo impacto...</div>
+            <div style="font-size:.62rem;color:var(--gray-500);">Tratamiento: Cipermetrina 10%</div>
+            <div class="divider"></div>
+            <div class="wf-btn primary full" style="font-size:.65rem;">💾 Guardar resultado</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="annotations">
+    <h4>Anotaciones</h4>
+    <ul class="annotation-list">
+      <li><div class="ann-num">1</div><div><strong>Tarjetas de plagas:</strong> Cada plaga tiene una barra visual de severidad (BAJA/MEDIA/ALTA/CRÍTICA) y borde lateral coloreado según nivel.</div></li>
+      <li><div class="ann-num">2</div><div><strong>Formulario de resultado:</strong> Editable inline. Los campos consumen <code>PUT /api/resultados/{id}</code>. El asistente completa la recomendación y tratamiento.</div></li>
+      <li><div class="ann-num">3</div><div><strong>Cambiar estado:</strong> Dropdown para cambiar entre PENDIENTE → EN_PROCESO → RESUELTO. Llama a <code>PUT /api/inspecciones/{id}</code>.</div></li>
+      <li><div class="ann-num">4</div><div><strong>Historial:</strong> Registro de cambios de estado. En esta versión se muestra como lista estática derivada del campo <code>FECHA_ACTUALIZACION</code>.</div></li>
+      <li><div class="ann-num">5</div><div><strong>Mobile — Botón atrás:</strong> El "◀ Insp. #001" en el header mobile navega de vuelta al listado de inspecciones con el estado preservado.</div></li>
+    </ul>
+  </div>
+
+  <div class="nav-flow">
+    <h4>Flujo de navegación</h4>
+    <div class="flow-diagram">
+      <div class="flow-box">Inspecciones (lista)</div>
+      <div class="flow-arrow">→ clic "Ver" →</div>
+      <div class="flow-box current">Detalle Inspección</div>
+      <div class="flow-arrow">→ guardar →</div>
+      <div class="flow-box">Lista actualizada</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     FLUJO DE NAVEGACIÓN GLOBAL
+═══════════════════════════════════════════════════ -->
+<section class="doc-section" id="flujo">
+  <div class="section-header">
+    <div class="screen-number">Diagrama de flujo</div>
+    <h2>Flujo de Navegación Global</h2>
+    <p>Mapa completo de navegación entre todas las pantallas del sistema.</p>
+  </div>
+
+  <div class="wf-card" style="padding:24px;">
+    <!-- Diagrama ASCII-art style -->
+    <div style="font-family:monospace;font-size:.72rem;line-height:2;color:var(--gray-600);">
+      <div style="text-align:center;margin-bottom:16px;">
+        <div style="display:inline-block;background:var(--gray-700);color:#fff;padding:8px 20px;border-radius:6px;font-weight:700;">LOGIN</div>
+        <div style="margin:4px 0;">│ éxito</div>
+        <div style="display:inline-block;background:var(--gray-700);color:#fff;padding:8px 20px;border-radius:6px;font-weight:700;">DASHBOARD</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;text-align:center;margin-top:8px;">
+        <div>
+          <div style="margin-bottom:6px;color:var(--gray-400);">▼ nav</div>
+          <div style="background:var(--gray-200);padding:8px;border-radius:6px;font-weight:700;color:var(--gray-700);">USUARIOS</div>
+          <div style="font-size:.6rem;color:var(--gray-400);margin-top:4px;">Listado + CRUD</div>
+        </div>
+        <div>
+          <div style="margin-bottom:6px;color:var(--gray-400);">▼ nav</div>
+          <div style="background:var(--gray-200);padding:8px;border-radius:6px;font-weight:700;color:var(--gray-700);">PREDIOS</div>
+          <div style="font-size:.6rem;color:var(--gray-400);margin-top:4px;">Listado + Mapa + CRUD</div>
+          <div style="margin-top:4px;color:var(--gray-400);">▼ inspeccionar</div>
+          <div style="background:var(--gray-300);padding:6px;border-radius:6px;font-size:.65rem;color:var(--gray-600);">→ Inspecciones<br>(filtradas)</div>
+        </div>
+        <div>
+          <div style="margin-bottom:6px;color:var(--gray-400);">▼ nav</div>
+          <div style="background:var(--gray-200);padding:8px;border-radius:6px;font-weight:700;color:var(--gray-700);">INSPECCIONES</div>
+          <div style="font-size:.6rem;color:var(--gray-400);margin-top:4px;">Listado + Wizard 3 pasos</div>
+          <div style="margin-top:4px;color:var(--gray-400);">▼ ver detalle</div>
+          <div style="background:var(--gray-300);padding:6px;border-radius:6px;font-size:.65rem;color:var(--gray-600);">DETALLE<br>Plagas + Resultado</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="flow-table" style="margin-top:24px;">
+    <tr>
+      <th>Pantalla origen</th>
+      <th>Acción del usuario</th>
+      <th>Pantalla destino</th>
+      <th>Condición</th>
+    </tr>
+    <tr><td>Login</td><td>Clic en "Ingresar"</td><td>Dashboard</td><td>Credenciales válidas + JWT</td></tr>
+    <tr><td>Login</td><td>Clic en "Ingresar"</td><td>Login (error)</td><td>Credenciales inválidas</td></tr>
+    <tr><td>Dashboard</td><td>Clic en "Usuarios" (nav)</td><td>Gestión Usuarios</td><td>Usuario autenticado</td></tr>
+    <tr><td>Dashboard</td><td>Clic en "Predios" (nav)</td><td>Gestión Predios</td><td>Usuario autenticado</td></tr>
+    <tr><td>Dashboard</td><td>Clic en "Inspecciones" (nav)</td><td>Gestión Inspecciones</td><td>Usuario autenticado</td></tr>
+    <tr><td>Predios</td><td>Clic ícono 🔍 en predio</td><td>Inspecciones (filtradas)</td><td>Predio seleccionado</td></tr>
+    <tr><td>Inspecciones</td><td>Clic "Ver"</td><td>Detalle Inspección</td><td>Inspección existente</td></tr>
+    <tr><td>Inspecciones</td><td>Completar wizard 3 pasos</td><td>Detalle Inspección (nueva)</td><td>Datos válidos guardados</td></tr>
+    <tr><td>Cualquier pantalla</td><td>Clic "Cerrar sesión"</td><td>Login</td><td>Token eliminado</td></tr>
+  </table>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     LEYENDA DE COMPONENTES
+═══════════════════════════════════════════════════ -->
+<section class="legend-section" id="leyenda">
+  <h2>Leyenda de Componentes UI</h2>
+  <div class="legend-grid">
+
+    <div class="legend-item">
+      <div class="preview"><div class="wf-input">Texto de ejemplo</div></div>
+      <div class="lname">Campo de texto (Input)</div>
+      <div class="ldesc">Input de formulario. Borde gris, fondo blanco. Placeholder en texto claro.</div>
+    </div>
+
+    <div class="legend-item">
+      <div class="preview"><div class="wf-btn primary">Botón primario</div></div>
+      <div class="lname">Botón primario</div>
+      <div class="ldesc">Acción principal de cada pantalla. Fondo oscuro, texto blanco.</div>
+    </div>
+
+    <div class="legend-item">
+      <div class="preview"><div class="wf-btn">Botón secundario</div></div>
+      <div class="lname">Botón secundario</div>
+      <div class="ldesc">Acciones complementarias. Fondo gris medio.</div>
+    </div>
+
+    <div class="legend-item">
+      <div class="preview" style="margin-bottom:6px;">
+        <div class="wf-navbar" style="border-radius:4px;padding:6px 10px;">
+          <div class="wf-logo-box" style="font-size:.6rem;">Logo</div>
+          <div class="wf-nav-links"><div class="wf-nav-link">Nav</div><div class="wf-nav-link active">Activo</div></div>
+        </div>
+      </div>
+      <div class="lname">Barra de navegación</div>
+      <div class="ldesc">Persistente en todas las pantallas post-login. Ítem activo en gris oscuro.</div>
+    </div>
+
+    <div class="legend-item">
+      <div class="preview" style="margin-bottom:6px;">
+        <div class="wf-badge" style="display:inline-block;">ACTIVO</div>&nbsp;
+        <div class="wf-badge" style="display:inline-block;">PENDIENTE</div>
+      </div>
+      <div class="lname">Badge / Etiqueta de estado</div>
+      <div class="ldesc">Indica estado de registros. Fondo gris claro, texto gris oscuro.</div>
+    </div>
+
+    <div class="legend-item">
+      <div class="preview">
+        <div class="wf-map" style="height:50px;font-size:.55rem;">📍 MAPA PLACEHOLDER</div>
+      </div>
+      <div class="lname">Placeholder de mapa</div>
+      <div class="ldesc">Fondo rayado diagonal indica área de mapa interactivo (Leaflet.js).</div>
+    </div>
+
+    <div class="legend-item">
+      <div class="preview" style="margin-bottom:6px;">
+        <div class="wf-steps" style="font-size:.55rem;">
+          <div class="wf-step done">① Paso 1</div>
+          <div class="wf-step active">② Paso 2</div>
+          <div class="wf-step">③ Paso 3</div>
+        </div>
+      </div>
+      <div class="lname">Indicador de pasos (Wizard)</div>
+      <div class="ldesc">Muestra progreso en formularios multi-paso. Completado = gris medio, Activo = oscuro.</div>
+    </div>
+
+    <div class="legend-item">
+      <div class="preview" style="margin-bottom:6px;">
+        <table class="wf-table" style="font-size:.6rem;">
+          <tr><th>Col A</th><th>Col B</th></tr>
+          <tr><td>Dato 1</td><td>Dato 2</td></tr>
+        </table>
+      </div>
+      <div class="lname">Tabla de datos</div>
+      <div class="ldesc">Cabeceras en gris, filas alternadas. Columna de acciones al final.</div>
+    </div>
+
+    <div class="legend-item">
+      <div class="preview">
+        <div class="wf-card" style="padding:8px;">
+          <div class="wf-card-title" style="font-size:.6rem;">Tarjeta</div>
+          <div style="font-size:.55rem;color:var(--gray-400);">Contenido...</div>
+        </div>
+      </div>
+      <div class="lname">Tarjeta (Card)</div>
+      <div class="ldesc">Contenedor con borde y fondo blanco. Título en gris oscuro con separador.</div>
+    </div>
+
+    <div class="legend-item">
+      <div class="preview" style="margin-bottom:6px;">
+        <div class="wf-metric" style="max-width:100px;">
+          <div class="num" style="font-size:.9rem;">42</div>
+          <div class="lbl">Métrica</div>
+        </div>
+      </div>
+      <div class="lname">Tarjeta de métrica</div>
+      <div class="ldesc">Número grande centrado con etiqueta descriptiva. Usado en Dashboard.</div>
+    </div>
+
+    <div class="legend-item">
+      <div class="preview">
+        <div class="wf-chart" style="height:50px;">
+          <div class="wf-bars" style="height:40px;">
+            <div class="wf-bar" style="height:60%"></div>
+            <div class="wf-bar" style="height:80%"></div>
+            <div class="wf-bar" style="height:45%"></div>
+            <div class="wf-bar" style="height:90%"></div>
+          </div>
+        </div>
+      </div>
+      <div class="lname">Gráfico de barras</div>
+      <div class="ldesc">Placeholder de gráfico. Barras grises de alturas variables representan datos.</div>
+    </div>
+
+    <div class="legend-item">
+      <div class="preview">
+        <div class="wf-breadcrumb" style="margin:0;">Inicio / Sección / <span>Actual</span></div>
+      </div>
+      <div class="lname">Breadcrumb (Migas de pan)</div>
+      <div class="ldesc">Indica la posición jerárquica del usuario dentro del sistema de navegación.</div>
+    </div>
+
+  </div>
+
+  <!-- Pie del documento -->
+  <div style="margin-top:48px;padding-top:24px;border-top:1px solid var(--gray-600);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <div>
+      <div style="font-size:.7rem;font-weight:700;color:var(--gray-300);">AgroGestión — Documentación de Diseño UI</div>
+      <div style="font-size:.62rem;color:var(--gray-500);margin-top:2px;">Wireframes de Baja Fidelidad · v1.0 · Mayo 2026</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:.62rem;color:var(--gray-500);">Proyecto Integrador — Ingeniería de Sistemas</div>
+      <div style="font-size:.62rem;color:var(--gray-500);margin-top:2px;">6 pantallas · 12 vistas (Desktop + Mobile)</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
