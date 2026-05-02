@@ -1,23 +1,157 @@
-# Frontend - Sistema de Gestión Agrícola
+# 🚀 Microservicios - Sistema de Gestión Agrícola
 
-Frontend moderno que integra con los 3 microservicios del sistema de gestión agrícola.
+**Documentación técnica de la arquitectura de microservicios**
 
-## Características
+---
 
-- ✅ **Login Simulado**: Autenticación básica con token
-- ✅ **Integración Multi-Servicio**: Conecta con los 3 microservicios (8081, 8082, 8083)
-- ✅ **Consulta de Usuarios**: Gestión de productores y asistentes técnicos
-- ✅ **Consulta de Predios**: Visualización de territorios y cultivos
-- ✅ **Consulta de Inspecciones**: Registro de inspecciones fitosanitarias
-- ✅ **Verificación de Estado**: Chequea salud de todos los microservicios
-- ✅ **Interfaz Responsiva**: Funciona en desktop, tablet y móvil
-- ✅ **Almacenamiento Local**: Token guardado en localStorage
+## 📋 Contenido
 
-## Credenciales de Demo
+Este directorio contiene:
+
+1. **Frontend** - Aplicación web cliente
+2. **Java** - 3 Microservicios Spring Boot
+3. Configuración, scripts y documentación
+
+---
+
+## 🏛️ Estructura de Microservicios
 
 ```
-Email: test@agro.com
+┌──────────────────────────────────────────┐
+│                Frontend                  │
+│           (HTML/CSS/JavaScript)          │
+│           http://localhost:8000          │
+└──────────────┬──────────────┬────────────┘
+               │              │
+        ┌──────▼─────┐  ┌─────▼────────┐
+        │ MS-Usuarios│  │ MS-Predios   │
+        │ :8081      │  │ :8082        │
+        └──────┬─────┘  └─────┬────────┘
+               │              │
+        ┌──────▼────────────────────┐
+        │  MS-Inspecciones         │
+        │  :8083                   │
+        └──────┬───────────────────┘
+               │
+               ▼
+        ┌────────────────┐
+        │ Oracle DB 10g  │
+        │ :1522          │
+        └────────────────┘
+```
+
+---
+
+## 📚 Documentación por Componente
+
+| Componente | Descripción | Documentación |
+|-----------|-------------|---------------|
+| **Frontend** | Cliente web HTML5/CSS3/JS | [Ver README](./frontend/README.md) |
+| **MS-Usuarios** | API de gestión de usuarios | [Ver README](./java/usuarios-service/README.md) |
+| **MS-Predios** | API de gestión de predios | [Ver README](./java/predios-service/README.md) |
+| **MS-Inspecciones** | API de inspecciones fitosanitarias | [Ver README](./java/inspecciones-service/README.md) |
+
+---
+
+## 🚀 Inicio Rápido
+
+### Compilar Todo
+
+```bash
+cd microservicios
+mvn clean install -DskipTests
+```
+
+### Ejecutar Servicios
+
+**Terminal 1 - MS-Usuarios**
+```bash
+cd java/usuarios-service
+java -jar target/usuarios-service.jar
+```
+
+**Terminal 2 - MS-Predios**
+```bash
+cd java/predios-service
+java -jar target/predios-service.jar
+```
+
+**Terminal 3 - MS-Inspecciones**
+```bash
+cd java/inspecciones-service
+java -jar target/inspecciones-service.jar
+```
+
+**Terminal 4 - Frontend**
+```bash
+cd frontend
+python -m http.server 8000
+```
+
+---
+
+## 🌐 Acceso a Servicios
+
+| Servicio | Puerto | URL |
+|----------|--------|-----|
+| Frontend | 8000 | http://localhost:8000 |
+| Usuarios API | 8081 | http://localhost:8081/api/usuarios |
+| Predios API | 8082 | http://localhost:8082/api/predios |
+| Inspecciones API | 8083 | http://localhost:8083/api/inspecciones |
+
+---
+
+## 📊 Swagger UI
+
+Documentación interactiva disponible en:
+
+- **Usuarios**: http://localhost:8081/swagger-ui/index.html
+- **Predios**: http://localhost:8082/swagger-ui/index.html
+- **Inspecciones**: http://localhost:8083/swagger-ui/index.html
+
+---
+
+## 🔐 Autenticación
+
+### Credenciales de Prueba
+
+```
+Usuario: test@agro.com
 Contraseña: 12345678
+Rol: PRODUCTOR
+```
+
+### Otros usuarios disponibles
+
+```
+admin@agro.com / 12345678 (ADMIN)
+productor@agro.com / 12345678 (PRODUCTOR)
+user2@agro.com / 12345678 (ASISTENTE_TECNICO)
+```
+
+---
+
+## 📁 Archivos Importantes
+
+| Archivo | Descripción |
+|---------|------------|
+| `pom.xml` | Maven parent - gestiona versiones |
+| `docker-compose.yaml` | Orquestación de contenedores |
+| `start-microservices.ps1` | Script para iniciar todo |
+| `GUIA-RAPIDA.md` | Guía de inicio rápido |
+| `DIAGRAMA-CASOS-USO.md` | Casos de uso del sistema |
+| `ORACLE-FLYWAY-CONFIG.md` | Configuración BD |
+
+---
+
+## 📞 Soporte
+
+Consultar documentación específica en carpetas individuales
+
+---
+
+**Versión**: 1.0.0  
+**Última actualización**: Mayo 2, 2026
 ```
 
 ## Estructura de Archivos

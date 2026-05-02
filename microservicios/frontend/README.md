@@ -1,6 +1,15 @@
-# Frontend - Sistema de Gestión Agrícola
+# 🖥️ Frontend - Sistema de Gestión Agrícola
 
-Frontend moderno que integra con los 3 microservicios del sistema de gestión agrícola.
+**Aplicación web moderna para gestión agrícola integral**  
+**Versión**: 1.0.0 | **Estado**: ✅ Production Ready
+
+---
+
+## 📊 Descripción
+
+Frontend cliente HTML5/CSS3/JavaScript que se conecta con los 3 microservicios backend para gestionar usuarios, predios e inspecciones fitosanitarias.
+
+Este módulo integra con los 3 microservicios del sistema de gestión agrícola
 
 ## Características
 

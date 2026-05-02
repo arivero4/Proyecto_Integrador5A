@@ -261,6 +261,167 @@ async function checkAllHealth() {
 }
 
 /**
+ * Crear nuevo Usuario
+ */
+async function crearUsuario() {
+    try {
+        const nombre = document.getElementById('usuarioNombre').value;
+        const email = document.getElementById('usuarioEmail').value;
+        const telefono = document.getElementById('usuarioTelefono').value;
+        const tipo = document.getElementById('usuarioTipo').value;
+
+        if (!nombre || !email || !telefono || !tipo) {
+            showMessage('usuarioMessage', '❌ Completa todos los campos', 'error');
+            return;
+        }
+
+        const response = await fetch(`${API_CONFIG.usuarios}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': authToken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombre,
+                email,
+                telefono,
+                tipoUsuario: tipo,
+                estado: 'ACTIVO'
+            })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || `Error ${response.status}`);
+        }
+
+        const data = await response.json();
+        showMessage('usuarioMessage', `✅ Usuario creado exitosamente (ID: ${data.id})`, 'success');
+        
+        // Limpiar formulario
+        document.getElementById('usuarioNombre').value = '';
+        document.getElementById('usuarioEmail').value = '';
+        document.getElementById('usuarioTelefono').value = '';
+        document.getElementById('usuarioTipo').value = '';
+
+        // Recargar lista
+        setTimeout(() => getUsuarios(), 1000);
+    } catch (error) {
+        showMessage('usuarioMessage', `❌ Error: ${error.message}`, 'error');
+        console.error('Error en crearUsuario:', error);
+    }
+}
+
+/**
+ * Crear nuevo Predio
+ */
+async function crearPredio() {
+    try {
+        const nombre = document.getElementById('predioNombre').value;
+        const idProductor = document.getElementById('predioProductorId').value;
+        const idMunicipio = document.getElementById('predioMunicipioId').value;
+        const areaHectareas = document.getElementById('predioArea').value;
+        const latitud = document.getElementById('predioLatitud').value;
+        const longitud = document.getElementById('predioLongitud').value;
+
+        if (!nombre || !idProductor || !idMunicipio || !areaHectareas) {
+            showMessage('predioMessage', '❌ Completa los campos requeridos', 'error');
+            return;
+        }
+
+        const response = await fetch(`${API_CONFIG.predios}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': authToken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nombre,
+                idProductor: parseInt(idProductor),
+                idMunicipio: parseInt(idMunicipio),
+                areaHectareas: parseFloat(areaHectareas),
+                latitud: latitud ? parseFloat(latitud) : null,
+                longitud: longitud ? parseFloat(longitud) : null
+            })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || `Error ${response.status}`);
+        }
+
+        const data = await response.json();
+        showMessage('predioMessage', `✅ Predio creado exitosamente (ID: ${data.id})`, 'success');
+        
+        // Limpiar formulario
+        document.getElementById('predioNombre').value = '';
+        document.getElementById('predioProductorId').value = '';
+        document.getElementById('predioMunicipioId').value = '';
+        document.getElementById('predioArea').value = '';
+        document.getElementById('predioLatitud').value = '';
+        document.getElementById('predioLongitud').value = '';
+
+        // Recargar lista
+        setTimeout(() => getPredios(), 1000);
+    } catch (error) {
+        showMessage('predioMessage', `❌ Error: ${error.message}`, 'error');
+        console.error('Error en crearPredio:', error);
+    }
+}
+
+/**
+ * Crear nueva Inspección
+ */
+async function crearInspeccion() {
+    try {
+        const idPredio = document.getElementById('inspeccionPredioId').value;
+        const idAsistente = document.getElementById('inspeccionAsistenteId').value;
+        const fecha = document.getElementById('inspeccionFecha').value;
+        const observaciones = document.getElementById('inspeccionObservaciones').value;
+
+        if (!idPredio || !idAsistente || !fecha) {
+            showMessage('inspeccionMessage', '❌ Completa los campos requeridos', 'error');
+            return;
+        }
+
+        const response = await fetch(`${API_CONFIG.inspecciones}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': authToken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                idPredio: parseInt(idPredio),
+                idAsistente: parseInt(idAsistente),
+                fechaInspeccion: fecha,
+                observaciones: observaciones || '',
+                estado: 'PENDIENTE'
+            })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || `Error ${response.status}`);
+        }
+
+        const data = await response.json();
+        showMessage('inspeccionMessage', `✅ Inspección creada exitosamente (ID: ${data.id})`, 'success');
+        
+        // Limpiar formulario
+        document.getElementById('inspeccionPredioId').value = '';
+        document.getElementById('inspeccionAsistenteId').value = '';
+        document.getElementById('inspeccionFecha').value = '';
+        document.getElementById('inspeccionObservaciones').value = '';
+
+        // Recargar lista
+        setTimeout(() => getInspecciones(), 1000);
+    } catch (error) {
+        showMessage('inspeccionMessage', `❌ Error: ${error.message}`, 'error');
+        console.error('Error en crearInspeccion:', error);
+    }
+}
+
+/**
  * Mostrar/ocultar tabs
  */
 function showTab(tabName) {

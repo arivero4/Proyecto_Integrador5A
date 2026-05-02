@@ -146,6 +146,56 @@ input[type="password"]:focus {
     background-color: #3182ce;
 }
 
+.btn-success {
+    background-color: #48bb78;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #38a169;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
+}
+
+.form-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.form-section h3 {
+    margin-top: 0;
+}
+
+.form-section select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: white;
+    color: #333;
+}
+
+.form-section select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+}
+
+.form-section textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+}
+
 .menu {
     display: flex;
     flex-wrap: wrap;
