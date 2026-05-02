@@ -1,0 +1,16 @@
+{
+  "name": "agro-frontend",
+  "version": "1.0.0",
+  "description": "Frontend para Sistema de Gestión Agrícola",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -c-1 -p 8000",
+    "dev": "python -m http.server 8000"
+  },
+  "keywords": ["frontend", "agriculture", "api"],
+  "author": "UDI",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

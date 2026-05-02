@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión Agrícola - Frontend</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sección de Login -->
+        <div id="loginSection" class="section">
+            <h1>🌾 Sistema de Gestión Agrícola</h1>
+            <h2>Iniciar Sesión</h2>
+            <div class="form-group">
+                <input id="email" type="email" placeholder="Email (test@agro.com)" value="test@agro.com">
+            </div>
+            <div class="form-group">
+                <input id="password" type="password" placeholder="Contraseña (12345678)" value="12345678">
+            </div>
+            <button class="btn btn-primary" onclick="login()">Ingresar</button>
+            <div id="loginMessage" class="message"></div>
+        </div>
+
+        <!-- Sección Principal (después de login) -->
+        <div id="mainSection" class="section hidden">
+            <div class="header">
+                <h1>🌾 Sistema de Gestión Agrícola</h1>
+                <button class="btn btn-danger" onclick="logout()">Cerrar Sesión</button>
+            </div>
+
+            <!-- Menú de Opciones -->
+            <div class="menu">
+                <button class="btn btn-menu" onclick="showTab('usuarios')">👥 Usuarios</button>
+                <button class="btn btn-menu" onclick="showTab('predios')">📍 Predios</button>
+                <button class="btn btn-menu" onclick="showTab('inspecciones')">🔍 Inspecciones</button>
+            </div>
+
+            <!-- Tab Usuarios -->
+            <div id="usuariosTab" class="tab hidden">
+                <h2>Gestión de Usuarios (Productores/Asistentes)</h2>
+                <button class="btn btn-secondary" onclick="getUsuarios()">Cargar Usuarios</button>
+                <div id="usuariosContainer" class="data-container"></div>
+            </div>
+
+            <!-- Tab Predios -->
+            <div id="prediosTab" class="tab hidden">
+                <h2>Gestión de Predios</h2>
+                <button class="btn btn-secondary" onclick="getPredios()">Cargar Predios</button>
+                <div id="prediosContainer" class="data-container"></div>
+            </div>
+
+            <!-- Tab Inspecciones -->
+            <div id="inspeccionesTab" class="tab hidden">
+                <h2>Gestión de Inspecciones Fitosanitarias</h2>
+                <button class="btn btn-secondary" onclick="getInspecciones()">Cargar Inspecciones</button>
+                <div id="inspeccionesContainer" class="data-container"></div>
+            </div>
+
+            <!-- Status de Microservicios -->
+            <div id="statusSection" class="status-section">
+                <h3>Estado de Microservicios</h3>
+                <button class="btn btn-info" onclick="checkAllHealth()">Verificar Estado</button>
+                <div id="healthContainer" class="data-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
